@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { forwardRef, useState, useRef, useEffect } from "react";
 
 export interface FloatingSelectOption {
   value: string;
@@ -19,7 +19,7 @@ export interface FloatingSelectProps extends React.InputHTMLAttributes<HTMLInput
   clearable?: boolean; // Optional: X-Button anzeigen
 }
 
-const FloatingSelect: React.FC<FloatingSelectProps> = ({
+const FloatingSelect = React.forwardRef<HTMLSelectElement, FloatingSelectProps>(({
   label,
   options,
   value,
@@ -32,7 +32,7 @@ const FloatingSelect: React.FC<FloatingSelectProps> = ({
   children,
   clearable,
   ...rest
-}) => {
+}, ref) => {
   const [open, setOpen] = useState(false);
   const [highlighted, setHighlighted] = useState<number>(-1);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -128,14 +128,14 @@ const FloatingSelect: React.FC<FloatingSelectProps> = ({
       // Mit Alt keine Auswahl, nur öffnen
       e.preventDefault();
     } else if (e.key === "Enter") {
-      if (highlighted >= 0 && highlighted < opts.length) {
+      if (highlighted >= 0 && highlighted < opts.length && opts[highlighted]) {
         e.preventDefault();
         handleSelect(opts[highlighted].value);
         setOpen(false);
         setHighlighted(-1); // Highlight zurücksetzen nach Auswahl
       }
     } else if (e.key === "Tab") {
-      if (open && highlighted >= 0 && highlighted < opts.length) {
+      if (open && highlighted >= 0 && highlighted < opts.length && opts[highlighted]) {
         handleSelect(opts[highlighted].value);
         setOpen(false);
         setHighlighted(-1); // Highlight zurücksetzen nach Auswahl
@@ -179,8 +179,13 @@ const FloatingSelect: React.FC<FloatingSelectProps> = ({
   const optionRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
-    if (open && highlighted >= 0 && optionRefs.current[highlighted]) {
-      optionRefs.current[highlighted]?.scrollIntoView({ block: "nearest" });
+    if (
+      open &&
+      highlighted >= 0 &&
+      optionRefs.current &&
+      optionRefs.current[highlighted] instanceof HTMLElement
+    ) {
+      optionRefs.current[highlighted].scrollIntoView({ block: "nearest" });
     }
   }, [highlighted, open]);
 
@@ -189,7 +194,7 @@ const FloatingSelect: React.FC<FloatingSelectProps> = ({
     <div className={containerClassName}>
       <div style={{ position: "relative" }}>
         <input
-          ref={inputRef}
+          ref={ref as React.Ref<HTMLInputElement>}
           id={id}
           name={name}
           className={inputClassName.replace("flex-1", "") + " cursor-pointer"}
@@ -302,7 +307,7 @@ const FloatingSelect: React.FC<FloatingSelectProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default FloatingSelect;
 

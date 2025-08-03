@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
 import FloatingInput from "./components/FloatingInput";
 import FloatingSelect from "./components/FloatingSelect";
@@ -19,6 +19,33 @@ type AngebotState = {
 };
 
 function App() {
+
+  // Refs für die ersten Felder jeder Seite
+  const refPersonVorname = useRef<HTMLInputElement>(null);
+  const refChildVorname = useRef<HTMLInputElement>(null);
+  const refHinweiseArt = useRef<HTMLSelectElement>(null);
+  const refSepaKontoinhaber = useRef<HTMLInputElement>(null);
+  const refAngebotSelect = useRef<HTMLSelectElement>(null);
+
+  // Validierung für Pflichtfelder der ersten Seite
+  const [step, setStep] = useState(0);
+
+  // Fokus nach Step-Wechsel setzen
+  useEffect(() => {
+    if (step === 0 && refPersonVorname.current) {
+      refPersonVorname.current.focus();
+    } else if (step === 1 && refChildVorname.current) {
+      refChildVorname.current.focus();
+    } else if (step === 2 && refHinweiseArt.current) {
+      refHinweiseArt.current.focus();
+    } else if (step === 3 && refSepaKontoinhaber.current) {
+      refSepaKontoinhaber.current.focus();
+    } else if (step === 4 && refAngebotSelect.current) {
+      refAngebotSelect.current.focus();
+    }
+  }, [step]);
+
+
   const handleChildDateChange = (value: string | null) => {
     setChild((prev) => ({ ...prev, geburtsdatum: value ?? "" }));
   };
@@ -129,8 +156,7 @@ function App() {
     const { name, value } = e.target;
     setChild((prev) => ({ ...prev, [name]: value }));
   };
-  // Validierung für Pflichtfelder der ersten Seite
-  const [step, setStep] = useState(0);
+
   // State für Hinweise-Seite
   const [hinweise, setHinweise] = useState({
     betreuungsart: "",
@@ -212,6 +238,8 @@ function App() {
 
   // IBAN Fehler-Status
   const [ibanError, setIbanError] = useState("");
+  // Bankname für IBAN
+  const [ibanBankName, setIbanBankName] = useState("");
 
   // Validierung für Pflichtfelder der SEPA-Seite
   const allSepaRequiredFilled =
@@ -243,12 +271,35 @@ function App() {
     return "";
   };
 
-  const handleSepaInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSepaInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "iban") {
       const masked = formatIban(value);
       setSepa((prev) => ({ ...prev, iban: masked }));
       setIbanError(validateIban(masked));
+
+      // Nur API-Call, wenn IBAN formal gültig ist
+      const cleaned = masked.replace(/[^A-Za-z0-9]/g, "");
+      if (/^DE[0-9A-Za-z]{20}$/.test(cleaned)) {
+        try {
+          const response = await fetch(`https://openiban.com/validate/${cleaned}?getBank=true&validateBankCode=true&getBIC=true`);
+          if (response.ok) {
+            const data = await response.json();
+            if (data && data.bankData && data.bankData.name) {
+              const bic = data.bankData.bic;
+              setIbanBankName(bic ? `${data.bankData.name} (${bic})` : data.bankData.name);
+            } else {
+              setIbanBankName("Kein Bankname verfügbar");
+            }
+          } else {
+            setIbanBankName("");
+          }
+        } catch (err) {
+          setIbanBankName("");
+        }
+      } else {
+        setIbanBankName("");
+      }
     } else {
       setSepa((prev) => ({ ...prev, [name]: value }));
     }
@@ -330,6 +381,7 @@ function App() {
                 required
                 value={person.vorname}
                 onChange={handlePersonInputChange}
+                ref={refPersonVorname}
               />
             </div>
             <div className="col-span-3">
@@ -400,6 +452,7 @@ function App() {
                 required
                 value={child.vorname}
                 onChange={handleChildInputChange}
+                ref={refChildVorname}
               />
             </div>
             {/* Nachname: alle 3 Spalten */}
@@ -478,7 +531,10 @@ function App() {
                     ? angeboteMatrix.find((s) => s.schule === child.schule)
                     : undefined;
                   return schuleObj && Array.isArray(schuleObj.klassen)
-                    ? schuleObj.klassen.map((k: string) => ({ label: k, value: k }))
+                    ? schuleObj.klassen.map((k: string) => ({
+                        label: k,
+                        value: k,
+                      }))
                     : [];
                 })()}
                 value={child.klasse}
@@ -510,6 +566,7 @@ function App() {
                 onChange={(value) =>
                   handleHinweiseSelectChange(value as string)
                 }
+                ref={refHinweiseArt}
               />
             </div>
             {isAbholRelevant && (
@@ -599,7 +656,7 @@ function App() {
               <label htmlFor="agb" className="font-medium">
                 Ich habe die{" "}
                 <a
-                  href="#"
+                  href="https://www.kitaweb-bw.de/kita/datei/436709/Nutzungsbedingungen_Betreuung_Januar_2024.PDF"
                   className="text-blue-600 underline"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -622,7 +679,7 @@ function App() {
               <label htmlFor="widerruf" className="font-medium">
                 Ich habe die{" "}
                 <a
-                  href="#"
+                  href="https://www.kitaweb-bw.de/kita/datei/436709/Datenschutzerkl%C3%A4rung_Stadt_Bad_Waldsee.PDF"
                   className="text-blue-600 underline"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -647,7 +704,7 @@ function App() {
                 widerruflich wiederkehrende Zahlungen bei Fälligkeit mittels
                 SEPA-Basislastschrift einzuziehen{" "}
                 <a
-                  href="#"
+                  href="https://www.kitaweb-bw.de/kita/datei/436709/Hinweise_zum_SEPA_Mandat_Mai_2025.PDF"
                   className="text-blue-600 underline"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -664,6 +721,7 @@ function App() {
                 required
                 value={sepa.kontoinhaber}
                 onChange={handleSepaInputChange}
+                ref={refSepaKontoinhaber}
               />
             </div>
             <div className="col-span-3">
@@ -677,6 +735,9 @@ function App() {
               />
               {ibanError && (
                 <div className="text-red-600 text-sm mt-1">{ibanError}</div>
+              )}
+              {ibanBankName && !ibanError && (
+                <div className="text-green-700 text-sm mt-1">Bank: {ibanBankName}</div>
               )}
             </div>
           </form>
@@ -704,6 +765,8 @@ function App() {
                 angebotObj && Array.isArray(angebotObj.zeiten)
                   ? angebotObj.zeiten
                   : [];
+              // Nur das erste Paket bekommt den Ref für den Fokus
+              const angebotSelectRef = idx === 0 ? refAngebotSelect : undefined;
               return (
                 <div
                   key={idx}
@@ -728,6 +791,7 @@ function App() {
                           }
                           handleAngebotChange(idx, "angebot", value);
                         }}
+                        ref={angebotSelectRef}
                       />
                     </div>
                     {/* Checkboxen für die Tage */}
@@ -844,6 +908,7 @@ function App() {
         </button>
         <button
           onClick={handleNext}
+                    
           disabled={
             step === 0
               ? !allRequiredFilled
@@ -855,9 +920,10 @@ function App() {
               ? !allSepaRequiredFilled
               : false
           }
+
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
         >
-          Weiter
+          {step === 4 ? "Jetzt kostenpflichtig buchen" : "Weiter"}
         </button>
       </div>
     </div>
