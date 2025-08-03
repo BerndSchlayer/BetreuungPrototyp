@@ -1,0 +1,130 @@
+
+[
+  {
+    "schule": "Durlesbachschule",
+    "klassen": ["1a", "1b", "2a", "2b", "3", "4"],
+    "angebote": [
+      {
+        "angebot": "Frühbetreuung",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Dienstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Donnerstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Freitag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" }
+        ]
+      },
+      {
+        "angebot": "Spätbetreuung",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
+          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
+          { "tag": "Donnerstag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
+          { "tag": "Freitag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" }
+        ]
+      },
+      {
+        "angebot": "Verlängert",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "13:00", "uhrzeitBis": "15:30" },
+          { "tag": "Dienstag", "uhrzeitVon": "13:00", "uhrzeitBis": "14:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "13:00", "uhrzeitBis": "15:30" },
+          { "tag": "Donnerstag", "uhrzeitVon": "13:00", "uhrzeitBis": "15:30" }
+        ]
+      }
+    ]
+  },
+  {
+    "schule": "Grundschule Haisterkirch",
+    "klassen": ["1", "2", "3", "4"],
+    "angebote": [
+      {
+        "angebot": "Frühbetreuung",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Dienstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Donnerstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Freitag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" }
+        ]
+      },
+      {
+        "angebot": "Spätbetreuung",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Donnerstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Freitag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" }
+        ]
+      },
+      {
+        "angebot": "Verlängert",
+        "zeiten": [
+          { "tag": "Mittwoch", "uhrzeitVon": "14:00", "uhrzeitBis": "15:30" }
+        ]
+      },
+      {
+        "angebot": "Mittagessen",
+        "zeiten": [
+          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" }
+        ]
+      }
+    ]
+  },
+  {
+    "schule": "Döchtbühlschule",
+    "klassen": ["1a", "1b", "1c", "2a", "2b", "3", "4"],
+    "angebote": [
+      {
+        "angebot": "Frühbetreuung",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Dienstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Donnerstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Freitag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" }
+        ]
+      },
+      {
+        "angebot": "Spätbetreuung",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Donnerstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Freitag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" }
+        ]
+      }
+    ]
+  },
+  {
+    "schule": "Testschule Wolfegg",
+    "klassen": ["1", "2", "3", "4"],
+    "angebote": [
+      {
+        "angebot": "Frühbetreuung",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Dienstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Donnerstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
+          { "tag": "Freitag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" }
+        ]
+      },
+      {
+        "angebot": "Spätbetreuung",
+        "zeiten": [
+          { "tag": "Montag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Donnerstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
+          { "tag": "Freitag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" }
+        ]
+      }
+    ]
+  }
+
+]
