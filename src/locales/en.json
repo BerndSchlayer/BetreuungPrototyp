@@ -70,5 +70,14 @@
     "zurueck": "Back",
     "weiter": "Next",
     "buchen": "Book now with costs"
+  },
+  "weekdays": {
+    "Montag": "Mon",
+    "Dienstag": "Tue",
+    "Mittwoch": "Wed",
+    "Donnerstag": "Thu",
+    "Freitag": "Fri",
+    "Samstag": "Sat",
+    "Sonntag": "Sun"
   }
 }

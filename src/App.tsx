@@ -815,7 +815,7 @@ function App() {
                                 }
                               />
                               <span>
-                                {z.tag}
+                                {t(`weekdays.${z.tag}`) || z.tag}
                                 {z.uhrzeitVon || z.uhrzeitBis ? (
                                   <span className="ml-1 text-xs text-gray-500">
                                     ({z.uhrzeitVon}

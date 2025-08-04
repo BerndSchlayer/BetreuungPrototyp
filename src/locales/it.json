@@ -70,5 +70,14 @@
     "zurueck": "Indietro",
     "weiter": "Avanti",
     "buchen": "Prenota ora a pagamento"
+  },
+  "weekdays": {
+    "Montag": "Lun",
+    "Dienstag": "Mar",
+    "Mittwoch": "Mer",
+    "Donnerstag": "Gio",
+    "Freitag": "Ven",
+    "Samstag": "Sab",
+    "Sonntag": "Dom"
   }
 }

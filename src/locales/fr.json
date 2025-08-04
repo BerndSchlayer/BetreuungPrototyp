@@ -70,5 +70,14 @@
     "zurueck": "Retour",
     "weiter": "Suivant",
     "buchen": "Réserver maintenant avec frais"
+  },
+  "weekdays": {
+    "Montag": "Lun",
+    "Dienstag": "Mar",
+    "Mittwoch": "Mer",
+    "Donnerstag": "Jeu",
+    "Freitag": "Ven",
+    "Samstag": "Sam",
+    "Sonntag": "Dim"
   }
 }

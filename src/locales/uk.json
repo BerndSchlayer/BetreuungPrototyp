@@ -70,5 +70,14 @@
     "zurueck": "Назад",
     "weiter": "Далі",
     "buchen": "Забронювати зараз з оплатою"
+  },
+  "weekdays": {
+    "Montag": "Пн",
+    "Dienstag": "Вт",
+    "Mittwoch": "Ср",
+    "Donnerstag": "Чт",
+    "Freitag": "Пт",
+    "Samstag": "Сб",
+    "Sonntag": "Нд"
   }
 }

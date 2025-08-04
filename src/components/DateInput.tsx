@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { format, parseISO, isValid } from "date-fns";
 import { de } from "date-fns/locale";
 import type { Locale } from "date-fns"; // <--- Locale Typ importieren
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 // Kalender-Icon SVG
 function CalendarIcon({ className = "w-5 h-5" }: { className?: string }) {
@@ -71,6 +71,8 @@ function SimpleCalendar({
     onClose();
   }
 
+  const { t } = useTranslation("dateInput");
+
   // Wochentage: Montag = 0, Sonntag = 6 (für deutsche Darstellung)
   const weekDays = [
     "Short_Monday",
@@ -123,7 +125,7 @@ function SimpleCalendar({
       <div className="grid grid-cols-7 gap-1 text-xs mb-1">
         {weekDays.map((key) => (
           <div key={key} className="font-bold text-center">
-            {t(`DateInput:${key}`)}
+            {t(key)}
           </div>
         ))}
       </div>

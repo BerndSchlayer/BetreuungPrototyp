@@ -70,5 +70,14 @@
     "zurueck": "Πίσω",
     "weiter": "Επόμενο",
     "buchen": "Κράτηση με χρέωση τώρα"
+  },
+  "weekdays": {
+    "Montag": "Δευ",
+    "Dienstag": "Τρι",
+    "Mittwoch": "Τετ",
+    "Donnerstag": "Πεμ",
+    "Freitag": "Παρ",
+    "Samstag": "Σαβ",
+    "Sonntag": "Κυρ"
   }
 }

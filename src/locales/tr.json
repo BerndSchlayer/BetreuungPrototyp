@@ -70,5 +70,14 @@
     "zurueck": "Geri",
     "weiter": "İleri",
     "buchen": "Şimdi ücretli rezerve et"
+  },
+  "weekdays": {
+    "Montag": "Pzt",
+    "Dienstag": "Sal",
+    "Mittwoch": "Çar",
+    "Donnerstag": "Per",
+    "Freitag": "Cum",
+    "Samstag": "Cmt",
+    "Sonntag": "Paz"
   }
 }

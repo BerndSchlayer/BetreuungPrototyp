@@ -70,5 +70,14 @@
     "zurueck": "عودة",
     "weiter": "التالي",
     "buchen": "احجز الآن مقابل رسوم"
+  },
+  "weekdays": {
+    "Montag": "الاثنين",
+    "Dienstag": "الثلاثاء",
+    "Mittwoch": "الأربعاء",
+    "Donnerstag": "الخميس",
+    "Freitag": "الجمعة",
+    "Samstag": "السبت",
+    "Sonntag": "الأحد"
   }
 }

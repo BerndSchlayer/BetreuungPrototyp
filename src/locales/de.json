@@ -70,5 +70,14 @@
     "zurueck": "Zurück",
     "weiter": "Weiter",
     "buchen": "Jetzt kostenpflichtig buchen"
+  },
+  "weekdays": {
+    "Montag": "Mo",
+    "Dienstag": "Di",
+    "Mittwoch": "Mi",
+    "Donnerstag": "Do",
+    "Freitag": "Fr",
+    "Samstag": "Sa",
+    "Sonntag": "So"
   }
 }

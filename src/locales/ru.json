@@ -70,5 +70,14 @@
     "zurueck": "Назад",
     "weiter": "Далее",
     "buchen": "Забронировать сейчас за плату"
+  },
+  "weekdays": {
+    "Montag": "Пн",
+    "Dienstag": "Вт",
+    "Mittwoch": "Ср",
+    "Donnerstag": "Чт",
+    "Freitag": "Пт",
+    "Самstag": "Сб",
+    "Sonntag": "Вс"
   }
 }
