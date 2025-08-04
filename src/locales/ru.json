@@ -1,0 +1,74 @@
+{
+  "title": "Забронировать предложение по уходу",
+  "next": "Далее",
+  "book": "Забронировать сейчас за плату",
+  "personTab": "Регистрирующее лицо",
+  "childTab": "Ребенок",
+  "notesTab": "Заметки",
+  "sepaTab": "SEPA",
+  "offerTab": "Предложение по уходу",
+  "child": {
+    "vorname": "Имя *",
+    "nachname": "Фамилия *",
+    "geburtsdatum": "Дата рождения *",
+    "geschlecht": "Пол *",
+    "geschlechtMaennlich": "Мужской",
+    "geschlechtWeiblich": "Женский",
+    "geschlechtDivers": "Другое",
+    "geschlechtOhneAngabe": "Без указания",
+    "schule": "Школа *",
+    "klasse": "Класс на начало ухода *"
+  },
+  "person": {
+    "anrede": "Обращение *",
+    "salutationHerr": "Господин",
+    "salutationFrau": "Госпожа",
+    "salutationDivers": "Другое",
+    "vorname": "Имя *",
+    "nachname": "Фамилия *",
+    "plz": "Индекс *",
+    "ort": "Город *",
+    "strasse": "Улица *",
+    "telefon": "Телефон / мобильный *",
+    "email": "Адрес электронной почты *"
+  },
+  "notes": {
+    "betreuungsart": "Ребенок покидает уход через*",
+    "selbststaendig": "Самостоятельно идет домой",
+    "abholung": "Забирается",
+    "bus": "Едет домой на автобусе",
+    "abholName": "Имя забирающего *",
+    "buslinie": "Автобусная линия *",
+    "nimmtMedikamente": "Мой ребенок принимает лекарства",
+    "medikamente": "Пожалуйста, укажите лекарства *",
+    "hatUnvertraeglichkeiten": "У моего ребенка есть непереносимости или аллергии",
+    "unvertraeglichkeiten": "Пожалуйста, укажите непереносимости или аллергии *"
+  },
+  "sepa": {
+    "agb1": "Я прочитал",
+    "agb2": "Условия использования",
+    "agb3": "*",
+    "widerruf1": "Я прочитал",
+    "widerruf2": "Политику конфиденциальности города Бад Вальдзе",
+    "widerruf3": "*",
+    "datenschutz1": "Я разрешаю городу Бад Вальдзе в любое время отзывать и взимать повторяющиеся платежи посредством SEPA-дебетования",
+    "datenschutz2": "Примечания к SEPA-мандату",
+    "datenschutz3": "*",
+    "kontoinhaber": "Владелец счета *",
+    "iban": "IBAN *",
+    "bank": "Банк"
+  },
+  "offer": {
+    "angebot": "Предложение по уходу *",
+    "tageAuswaehlen": "Выберите дни:",
+    "geschwisterHinweis": "Брат или сестра уже посещает это предложение или также был зарегистрирован",
+    "geschwisterName": "Имя брата или сестры *",
+    "entfernen": "Удалить",
+    "hinzufuegen": "Добавить пакет ухода"
+  },
+  "buttons": {
+    "zurueck": "Назад",
+    "weiter": "Далее",
+    "buchen": "Забронировать сейчас за плату"
+  }
+}

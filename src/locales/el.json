@@ -1,0 +1,74 @@
+{
+  "title": "Κράτηση προσφοράς φροντίδας",
+  "next": "Επόμενο",
+  "book": "Κράτηση με χρέωση τώρα",
+  "personTab": "Δηλώνων άτομο",
+  "childTab": "Παιδί",
+  "notesTab": "Σημειώσεις",
+  "sepaTab": "SEPA",
+  "offerTab": "Προσφορά φροντίδας",
+  "child": {
+    "vorname": "Όνομα *",
+    "nachname": "Επώνυμο *",
+    "geburtsdatum": "Ημερομηνία γέννησης *",
+    "geschlecht": "Φύλο *",
+    "geschlechtMaennlich": "Άνδρας",
+    "geschlechtWeiblich": "Γυναίκα",
+    "geschlechtDivers": "Διαφορετικό",
+    "geschlechtOhneAngabe": "Χωρίς δήλωση",
+    "schule": "Σχολείο *",
+    "klasse": "Τάξη κατά την έναρξη της φροντίδας *"
+  },
+  "person": {
+    "anrede": "Χαιρετισμός *",
+    "salutationHerr": "Κύριος",
+    "salutationFrau": "Κυρία",
+    "salutationDivers": "Διαφορετικό",
+    "vorname": "Όνομα *",
+    "nachname": "Επώνυμο *",
+    "plz": "ΤΚ *",
+    "ort": "Πόλη *",
+    "strasse": "Οδός *",
+    "telefon": "Τηλέφωνο / Κινητό *",
+    "email": "Διεύθυνση email *"
+  },
+  "notes": {
+    "betreuungsart": "Το παιδί φεύγει από τη φροντίδα μέσω*",
+    "selbststaendig": "Πηγαίνει μόνο του στο σπίτι",
+    "abholung": "Παραλαμβάνεται από",
+    "bus": "Πηγαίνει σπίτι με το λεωφορείο",
+    "abholName": "Όνομα παραλαμβάνοντος *",
+    "buslinie": "Γραμμή λεωφορείου *",
+    "nimmtMedikamente": "Το παιδί μου παίρνει φάρμακα",
+    "medikamente": "Παρακαλώ αναφέρετε τα φάρμακα *",
+    "hatUnvertraeglichkeiten": "Το παιδί μου έχει δυσανεξίες ή αλλεργίες",
+    "unvertraeglichkeiten": "Παρακαλώ αναφέρετε δυσανεξίες ή αλλεργίες *"
+  },
+  "sepa": {
+    "agb1": "Διάβασα τις",
+    "agb2": "Όρους χρήσης",
+    "agb3": "*",
+    "widerruf1": "Διάβασα την",
+    "widerruf2": "Πολιτική απορρήτου του Δήμου Bad Waldsee",
+    "widerruf3": "*",
+    "datenschutz1": "Εξουσιοδοτώ τον Δήμο Bad Waldsee να εισπράττει επαναλαμβανόμενες πληρωμές μέσω SEPA άμεσης χρέωσης ανά πάσα στιγμή με δυνατότητα ανάκλησης",
+    "datenschutz2": "Σημειώσεις για το SEPA εξουσιοδότηση",
+    "datenschutz3": "*",
+    "kontoinhaber": "Δικαιούχος λογαριασμού *",
+    "iban": "IBAN *",
+    "bank": "Τράπεζα"
+  },
+  "offer": {
+    "angebot": "Προσφορά φροντίδας *",
+    "tageAuswaehlen": "Επιλέξτε ημέρες:",
+    "geschwisterHinweis": "Ένα αδελφό παιδί παρακολουθεί ήδη αυτή την προσφορά ή έχει επίσης εγγραφεί",
+    "geschwisterName": "Όνομα αδελφού παιδιού *",
+    "entfernen": "Αφαίρεση",
+    "hinzufuegen": "Προσθήκη πακέτου φροντίδας"
+  },
+  "buttons": {
+    "zurueck": "Πίσω",
+    "weiter": "Επόμενο",
+    "buchen": "Κράτηση με χρέωση τώρα"
+  }
+}

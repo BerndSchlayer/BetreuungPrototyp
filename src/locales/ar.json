@@ -1,0 +1,74 @@
+{
+  "title": "حجز عرض الرعاية",
+  "next": "التالي",
+  "book": "احجز الآن مقابل رسوم",
+  "personTab": "الشخص المسجل",
+  "childTab": "الطفل",
+  "notesTab": "ملاحظات",
+  "sepaTab": "سيبا",
+  "offerTab": "عرض الرعاية",
+  "child": {
+    "vorname": "الاسم الأول *",
+    "nachname": "اسم العائلة *",
+    "geburtsdatum": "تاريخ الميلاد *",
+    "geschlecht": "الجنس *",
+    "geschlechtMaennlich": "ذكر",
+    "geschlechtWeiblich": "أنثى",
+    "geschlechtDivers": "متنوع",
+    "geschlechtOhneAngabe": "بدون تحديد",
+    "schule": "المدرسة *",
+    "klasse": "الصف عند بدء الرعاية *"
+  },
+  "person": {
+    "anrede": "التحية *",
+    "salutationHerr": "السيد",
+    "salutationFrau": "السيدة",
+    "salutationDivers": "متنوع",
+    "vorname": "الاسم الأول *",
+    "nachname": "اسم العائلة *",
+    "plz": "الرمز البريدي *",
+    "ort": "المدينة *",
+    "strasse": "الشارع *",
+    "telefon": "الهاتف / الجوال *",
+    "email": "عنوان البريد الإلكتروني *"
+  },
+  "notes": {
+    "betreuungsart": "يغادر الطفل الرعاية عن طريق*",
+    "selbststaendig": "يذهب إلى المنزل بمفرده",
+    "abholung": "يتم اصطحابه بواسطة",
+    "bus": "يذهب إلى المنزل بالحافلة",
+    "abholName": "اسم الشخص الذي يصطحب الطفل *",
+    "buslinie": "خط الحافلة *",
+    "nimmtMedikamente": "طفلي يتناول أدوية",
+    "medikamente": "يرجى ذكر الأدوية *",
+    "hatUnvertraeglichkeiten": "طفلي لديه عدم تحمل أو حساسية",
+    "unvertraeglichkeiten": "يرجى ذكر عدم التحمل أو الحساسية *"
+  },
+  "sepa": {
+    "agb1": "لقد قرأت",
+    "agb2": "شروط الاستخدام",
+    "agb3": "*",
+    "widerruf1": "لقد قرأت",
+    "widerruf2": "سياسة الخصوصية لمدينة باد فالدسيه",
+    "widerruf3": "*",
+    "datenschutz1": "أفوض مدينة باد فالدسيه بسحب المدفوعات المتكررة عند الاستحقاق عن طريق خصم سيبا المباشر في أي وقت قابل للإلغاء",
+    "datenschutz2": "ملاحظات حول تفويض سيبا",
+    "datenschutz3": "*",
+    "kontoinhaber": "صاحب الحساب *",
+    "iban": "آيبان *",
+    "bank": "البنك"
+  },
+  "offer": {
+    "angebot": "عرض الرعاية *",
+    "tageAuswaehlen": "اختر الأيام:",
+    "geschwisterHinweis": "طفل شقيق يحضر هذا العرض بالفعل أو تم تسجيله أيضًا",
+    "geschwisterName": "اسم الطفل الشقيق *",
+    "entfernen": "إزالة",
+    "hinzufuegen": "إضافة حزمة الرعاية"
+  },
+  "buttons": {
+    "zurueck": "عودة",
+    "weiter": "التالي",
+    "buchen": "احجز الآن مقابل رسوم"
+  }
+}

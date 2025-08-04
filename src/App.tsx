@@ -1,10 +1,12 @@
 import React, { useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 import FloatingInput from "./components/FloatingInput";
 import FloatingSelect from "./components/FloatingSelect";
 import DateInput from "./components/DateInput";
 import LookupSelect from "./components/LookupSelect";
 import TagInput from "./components/TagInput";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 
 import angeboteMatrix from "./utils/angeboteMatrix.json";
 
@@ -19,7 +21,7 @@ type AngebotState = {
 };
 
 function App() {
-
+  const { t } = useTranslation();
   // Refs für die ersten Felder jeder Seite
   const refPersonVorname = useRef<HTMLInputElement>(null);
   const refChildVorname = useRef<HTMLInputElement>(null);
@@ -44,7 +46,6 @@ function App() {
       refAngebotSelect.current.focus();
     }
   }, [step]);
-
 
   const handleChildDateChange = (value: string | null) => {
     setChild((prev) => ({ ...prev, geburtsdatum: value ?? "" }));
@@ -271,7 +272,9 @@ function App() {
     return "";
   };
 
-  const handleSepaInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSepaInputChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = e.target;
     if (name === "iban") {
       const masked = formatIban(value);
@@ -282,12 +285,16 @@ function App() {
       const cleaned = masked.replace(/[^A-Za-z0-9]/g, "");
       if (/^DE[0-9A-Za-z]{20}$/.test(cleaned)) {
         try {
-          const response = await fetch(`https://openiban.com/validate/${cleaned}?getBank=true&validateBankCode=true&getBIC=true`);
+          const response = await fetch(
+            `https://openiban.com/validate/${cleaned}?getBank=true&validateBankCode=true&getBIC=true`
+          );
           if (response.ok) {
             const data = await response.json();
             if (data && data.bankData && data.bankData.name) {
               const bic = data.bankData.bic;
-              setIbanBankName(bic ? `${data.bankData.name} (${bic})` : data.bankData.name);
+              setIbanBankName(
+                bic ? `${data.bankData.name} (${bic})` : data.bankData.name
+              );
             } else {
               setIbanBankName("Kein Bankname verfügbar");
             }
@@ -314,56 +321,52 @@ function App() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto my-8 p-8 border border-gray-200 rounded-lg bg-white shadow">
-      <h1 className="text-2xl font-bold mb-6 text-center">
-        Betreuungsangebot buchen
-      </h1>
+    <div className="max-w-2xl mx-auto my-8 p-8 border border-gray-200 rounded-lg bg-white shadow relative">
+      {/* Language Switcher oben rechts */}
+      <div className="absolute top-4 right-4 z-10">
+        <LanguageSwitcher />
+      </div>
+      <h1 className="text-2xl font-bold mb-6 text-left">{t("title")}</h1>
       <div className="flex mb-4 overflow-x-auto flex-nowrap gap-2">
-        {[
-          "Anmeldende Person",
-          "Kind",
-          "Hinweise",
-          "SEPA",
-          "Betreuungsangebot",
-        ].map((label, i) => (
-          <div
-            key={i}
-            className={`flex flex-col items-center min-w-[48px] px-2 py-1 select-none ${
-              step === i
-                ? "border-b-2 border-blue-600 font-bold text-blue-600"
-                : "border-b-2 border-gray-300 text-gray-500"
-            }`}
-          >
-            <span
-              className={`inline-block w-7 h-7 rounded-full text-white font-bold flex items-center justify-center mb-1 ${
-                step === i ? "bg-blue-600" : "bg-gray-300"
+        {["personTab", "childTab", "notesTab", "sepaTab", "offerTab"].map(
+          (key, i) => (
+            <div
+              key={i}
+              className={`flex flex-col items-center min-w-[48px] px-2 py-1 select-none ${
+                step === i
+                  ? "border-b-2 border-blue-600 font-bold text-blue-600"
+                  : "border-b-2 border-gray-300 text-gray-500"
               }`}
-              title={label}
             >
-              {i + 1}
-            </span>
-            {step === i && (
-              <span className="text-xs text-center whitespace-nowrap">
-                {label}
+              <span
+                className={`inline-block w-7 h-7 rounded-full text-white font-bold flex items-center justify-center mb-1 ${
+                  step === i ? "bg-blue-600" : "bg-gray-300"
+                }`}
+                title={t(key)}
+              >
+                {i + 1}
               </span>
-            )}
-          </div>
-        ))}
+              {step === i && (
+                <span className="text-xs text-center whitespace-nowrap">
+                  {t(key)}
+                </span>
+              )}
+            </div>
+          )
+        )}
       </div>
       <div className="min-h-[120px] mb-8">
         {step === 0 && (
-          // ...existing code...
           <form className="grid grid-cols-3 gap-x-4 gap-y-2">
-            {/* Anrede: nur linke Spalte */}
             <div className="col-span-1">
               <FloatingSelect
-                label="Anrede *"
+                label={t("person.anrede")}
                 name="anrede"
                 required
                 options={[
-                  { label: "Herr", value: "Herr" },
-                  { label: "Frau", value: "Frau" },
-                  { label: "Divers", value: "Divers" },
+                  { label: t("person.salutationHerr"), value: "Herr" },
+                  { label: t("person.salutationFrau"), value: "Frau" },
+                  { label: t("person.salutationDivers"), value: "Divers" },
                 ]}
                 value={person.anrede}
                 onChange={(value) =>
@@ -376,7 +379,7 @@ function App() {
             <div className="col-span-2"></div>
             <div className="col-span-3">
               <FloatingInput
-                label="Vorname *"
+                label={t("person.vorname")}
                 name="vorname"
                 required
                 value={person.vorname}
@@ -386,7 +389,7 @@ function App() {
             </div>
             <div className="col-span-3">
               <FloatingInput
-                label="Nachname *"
+                label={t("person.nachname")}
                 name="nachname"
                 required
                 value={person.nachname}
@@ -395,7 +398,7 @@ function App() {
             </div>
             <div className="col-span-1">
               <FloatingInput
-                label="PLZ *"
+                label={t("person.plz")}
                 name="plz"
                 required
                 value={person.plz}
@@ -404,7 +407,7 @@ function App() {
             </div>
             <div className="col-span-2">
               <FloatingInput
-                label="Ort *"
+                label={t("person.ort")}
                 name="ort"
                 required
                 value={person.ort}
@@ -413,7 +416,7 @@ function App() {
             </div>
             <div className="col-span-3">
               <FloatingInput
-                label="Straße *"
+                label={t("person.strasse")}
                 name="strasse"
                 required
                 value={person.strasse}
@@ -422,7 +425,7 @@ function App() {
             </div>
             <div className="col-span-3">
               <FloatingInput
-                label="Telefon / Mobil *"
+                label={t("person.telefon")}
                 name="telefon"
                 required
                 value={person.telefon}
@@ -431,7 +434,7 @@ function App() {
             </div>
             <div className="col-span-3">
               <FloatingInput
-                label="E-Mail Adresse *"
+                label={t("person.email")}
                 name="email"
                 type="email"
                 required
@@ -442,12 +445,10 @@ function App() {
           </form>
         )}
         {step === 1 && (
-          // ...existing code...
           <form className="grid grid-cols-3 gap-x-4 gap-y-2">
-            {/* Vorname: alle 3 Spalten */}
             <div className="col-span-3">
               <FloatingInput
-                label="Vorname *"
+                label={t("child.vorname")}
                 name="vorname"
                 required
                 value={child.vorname}
@@ -455,38 +456,37 @@ function App() {
                 ref={refChildVorname}
               />
             </div>
-            {/* Nachname: alle 3 Spalten */}
             <div className="col-span-3">
               <FloatingInput
-                label="Nachname *"
+                label={t("child.nachname")}
                 name="nachname"
                 required
                 value={child.nachname}
                 onChange={handleChildInputChange}
               />
             </div>
-            {/* Geburtsdatum: nur 1 Spalte */}
             <div className="col-span-1">
-              {/* DateInput muss importiert werden! */}
               <DateInput
-                label="Geburtsdatum *"
+                label={t("child.geburtsdatum")}
                 name="geburtsdatum"
                 required
                 value={child.geburtsdatum}
                 onChange={handleChildDateChange}
               />
             </div>
-            {/* Geschlecht: nur 1 Spalte */}
             <div className="col-span-1">
               <FloatingSelect
-                label="Geschlecht *"
+                label={t("child.geschlecht")}
                 name="geschlecht"
                 required
                 options={[
-                  { label: "männlich", value: "männlich" },
-                  { label: "weiblich", value: "weiblich" },
-                  { label: "divers", value: "divers" },
-                  { label: "ohne Angabe", value: "ohne Angabe" },
+                  { label: t("child.geschlechtMaennlich"), value: "männlich" },
+                  { label: t("child.geschlechtWeiblich"), value: "weiblich" },
+                  { label: t("child.geschlechtDivers"), value: "divers" },
+                  {
+                    label: t("child.geschlechtOhneAngabe"),
+                    value: "ohne Angabe",
+                  },
                 ]}
                 value={child.geschlecht}
                 onChange={(value) =>
@@ -496,12 +496,10 @@ function App() {
                 }
               />
             </div>
-            {/* Platzhalter für die dritte Spalte in dieser Zeile */}
             <div className="col-span-1"></div>
-            {/* Schule: alle 3 Spalten */}
             <div className="col-span-3">
               <FloatingSelect
-                label="Schule *"
+                label={t("child.schule")}
                 name="schule"
                 required
                 options={
@@ -520,10 +518,9 @@ function App() {
                 }
               />
             </div>
-            {/* Klasse zum Betreuungsbeginn: alle 3 Spalten, dynamisch aus Matrix */}
             <div className="col-span-3">
               <FloatingSelect
-                label="Klasse zum Betreuungsbeginn *"
+                label={t("child.klasse")}
                 name="klasse"
                 required
                 options={(() => {
@@ -551,16 +548,16 @@ function App() {
           <form className="grid grid-cols-3 gap-x-4 gap-y-2">
             <div className="col-span-3">
               <FloatingSelect
-                label="Kind verlässt die Betreuung indem es*"
+                label={t("notes.betreuungsart")}
                 name="betreuungsart"
                 required
                 options={[
                   {
-                    label: "selbständig nach Hause geht",
+                    label: t("notes.selbststaendig"),
                     value: "selbständig",
                   },
-                  { label: "abgeholt wird durch", value: "Abholung" },
-                  { label: "mit dem Bus nach Hause fährt", value: "Bus" },
+                  { label: t("notes.abholung"), value: "Abholung" },
+                  { label: t("notes.bus"), value: "Bus" },
                 ]}
                 value={hinweise.betreuungsart}
                 onChange={(value) =>
@@ -572,7 +569,7 @@ function App() {
             {isAbholRelevant && (
               <div className="col-span-3">
                 <FloatingInput
-                  label="Name der abholenden Person *"
+                  label={t("notes.abholName")}
                   name="abholName"
                   required
                   value={hinweise.abholName}
@@ -583,7 +580,7 @@ function App() {
             {isBusRelevant && (
               <div className="col-span-3">
                 <FloatingInput
-                  label="Buslinie *"
+                  label={t("notes.buslinie")}
                   name="buslinie"
                   required
                   value={hinweise.buslinie}
@@ -601,13 +598,13 @@ function App() {
                 className="mr-2"
               />
               <label htmlFor="nimmtMedikamente" className="font-medium">
-                Mein Kind nimmt Medikamente
+                {t("notes.nimmtMedikamente")}
               </label>
             </div>
             {hinweise.nimmtMedikamente && (
               <div className="col-span-3">
                 <FloatingInput
-                  label="Bitte Medikamente angeben *"
+                  label={t("notes.medikamente")}
                   name="medikamente"
                   required
                   value={hinweise.medikamente}
@@ -625,13 +622,13 @@ function App() {
                 className="mr-2"
               />
               <label htmlFor="hatUnvertraeglichkeiten" className="font-medium">
-                Mein Kind hat folgende Unverträglichkeiten oder Allergien
+                {t("notes.hatUnvertraeglichkeiten")}
               </label>
             </div>
             {hinweise.hatUnvertraeglichkeiten && (
               <div className="col-span-3">
                 <FloatingInput
-                  label="Bitte Unverträglichkeiten oder Allergien angeben *"
+                  label={t("notes.unvertraeglichkeiten")}
                   name="unvertraeglichkeiten"
                   required
                   value={hinweise.unvertraeglichkeiten}
@@ -654,16 +651,16 @@ function App() {
                 required
               />
               <label htmlFor="agb" className="font-medium">
-                Ich habe die{" "}
+                {t("sepa.agb1")}{" "}
                 <a
                   href="https://www.kitaweb-bw.de/kita/datei/436709/Nutzungsbedingungen_Betreuung_Januar_2024.PDF"
                   className="text-blue-600 underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Nutzungsbedingungen
+                  {t("sepa.agb2")}
                 </a>{" "}
-                gelesen*
+                {t("sepa.agb3")}
               </label>
             </div>
             <div className="col-span-3 mb-2">
@@ -677,16 +674,16 @@ function App() {
                 required
               />
               <label htmlFor="widerruf" className="font-medium">
-                Ich habe die{" "}
+                {t("sepa.widerruf1")}{" "}
                 <a
                   href="https://www.kitaweb-bw.de/kita/datei/436709/Datenschutzerkl%C3%A4rung_Stadt_Bad_Waldsee.PDF"
                   className="text-blue-600 underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Datenschutzerklärung der Stadt Bad Waldsee
+                  {t("sepa.widerruf2")}
                 </a>{" "}
-                gelesen*
+                {t("sepa.widerruf3")}
               </label>
             </div>
             <div className="col-span-3 mb-2">
@@ -700,23 +697,21 @@ function App() {
                 required
               />
               <label htmlFor="sepaZustimmung" className="font-medium">
-                Hiermit ermächtige ich die Stadt Bad Waldsee jederzeit
-                widerruflich wiederkehrende Zahlungen bei Fälligkeit mittels
-                SEPA-Basislastschrift einzuziehen{" "}
+                {t("sepa.datenschutz1")}{" "}
                 <a
                   href="https://www.kitaweb-bw.de/kita/datei/436709/Hinweise_zum_SEPA_Mandat_Mai_2025.PDF"
                   className="text-blue-600 underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Hineweise zum SEPA-Mandat
+                  {t("sepa.datenschutz2")}
                 </a>
-                *
+                {t("sepa.datenschutz3")}
               </label>
             </div>
             <div className="col-span-3">
               <FloatingInput
-                label="Kontoinhaber *"
+                label={t("sepa.kontoinhaber")}
                 name="kontoinhaber"
                 required
                 value={sepa.kontoinhaber}
@@ -726,18 +721,20 @@ function App() {
             </div>
             <div className="col-span-3">
               <FloatingInput
-                label="IBAN *"
+                label={t("sepa.iban")}
                 name="iban"
                 required
                 value={sepa.iban}
                 onChange={handleSepaInputChange}
-                maxLength={27} // DE IBAN: 22 Zeichen + 5 Leerzeichen
+                maxLength={27}
               />
               {ibanError && (
                 <div className="text-red-600 text-sm mt-1">{ibanError}</div>
               )}
               {ibanBankName && !ibanError && (
-                <div className="text-green-700 text-sm mt-1">Bank: {ibanBankName}</div>
+                <div className="text-green-700 text-sm mt-1">
+                  {t("sepa.bank")}: {ibanBankName}
+                </div>
               )}
             </div>
           </form>
@@ -775,7 +772,7 @@ function App() {
                   <form className="grid grid-cols-3 gap-x-4 gap-y-2">
                     <div className="col-span-3">
                       <FloatingSelect
-                        label="Betreuungsangebot *"
+                        label={t("offer.angebot")}
                         name="angebot"
                         required
                         options={angebotOptions}
@@ -798,7 +795,7 @@ function App() {
                     {tageMitUhrzeit.length > 0 && (
                       <div className="col-span-3 mt-2">
                         <label className="block font-medium mb-1">
-                          Tage auswählen:
+                          {t("offer.tageAuswaehlen")}
                         </label>
                         <div className="flex flex-wrap gap-4">
                           {tageMitUhrzeit.map((z) => (
@@ -849,15 +846,14 @@ function App() {
                           htmlFor={`geschwister-${idx}`}
                           className="font-medium"
                         >
-                          Ein Geschwisterkind besucht bereits dieses Angebot
-                          bzw. wurde ebenfalls angemeldet
+                          {t("offer.geschwisterHinweis")}
                         </label>
                       </div>
                     )}
                     {a.geschwister && (
                       <div className="col-span-3">
                         <FloatingInput
-                          label="Name des Geschwisterkinds *"
+                          label={t("offer.geschwisterName")}
                           name="geschwisterName"
                           required
                           value={a.geschwisterName}
@@ -878,7 +874,7 @@ function App() {
                           onClick={() => handleRemoveAngebot(idx)}
                           className="text-red-600 text-sm underline"
                         >
-                          Entfernen
+                          {t("offer.entfernen")}
                         </button>
                       </div>
                     )}
@@ -892,7 +888,7 @@ function App() {
                 onClick={handleAddAngebot}
                 className="px-4 py-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
               >
-                Betreuungspaket hinzufügen
+                {t("offer.hinzufuegen")}
               </button>
             )}
           </div>
@@ -904,11 +900,10 @@ function App() {
           disabled={step === 0}
           className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50"
         >
-          Zurück
+          {t("buttons.zurueck")}
         </button>
         <button
           onClick={handleNext}
-                    
           disabled={
             step === 0
               ? !allRequiredFilled
@@ -920,10 +915,9 @@ function App() {
               ? !allSepaRequiredFilled
               : false
           }
-
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
         >
-          {step === 4 ? "Jetzt kostenpflichtig buchen" : "Weiter"}
+          {step === 4 ? t("buttons.buchen") : t("buttons.weiter")}
         </button>
       </div>
     </div>

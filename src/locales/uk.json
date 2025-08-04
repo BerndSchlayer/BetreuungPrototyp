@@ -1,0 +1,74 @@
+{
+  "title": "Забронювати пропозицію догляду",
+  "next": "Далі",
+  "book": "Забронювати зараз з оплатою",
+  "personTab": "Особа, яка реєструється",
+  "childTab": "Дитина",
+  "notesTab": "Примітки",
+  "sepaTab": "SEPA",
+  "offerTab": "Пропозиція догляду",
+  "child": {
+    "vorname": "Ім'я *",
+    "nachname": "Прізвище *",
+    "geburtsdatum": "Дата народження *",
+    "geschlecht": "Стать *",
+    "geschlechtMaennlich": "чоловіча",
+    "geschlechtWeiblich": "жіноча",
+    "geschlechtDivers": "інше",
+    "geschlechtOhneAngabe": "без вказівки",
+    "schule": "Школа *",
+    "klasse": "Клас на початок догляду *"
+  },
+  "person": {
+    "anrede": "Звернення *",
+    "salutationHerr": "Пан",
+    "salutationFrau": "Пані",
+    "salutationDivers": "Інше",
+    "vorname": "Ім'я *",
+    "nachname": "Прізвище *",
+    "plz": "Поштовий індекс *",
+    "ort": "Місто *",
+    "strasse": "Вулиця *",
+    "telefon": "Телефон / мобільний *",
+    "email": "Електронна адреса *"
+  },
+  "notes": {
+    "betreuungsart": "Дитина залишає догляд наступним чином*",
+    "selbststaendig": "самостійно йде додому",
+    "abholung": "забирається",
+    "bus": "їде додому автобусом",
+    "abholName": "Ім'я особи, яка забирає *",
+    "buslinie": "Автобусний маршрут *",
+    "nimmtMedikamente": "Моя дитина приймає ліки",
+    "medikamente": "Вкажіть ліки *",
+    "hatUnvertraeglichkeiten": "Моя дитина має наступні непереносимості або алергії",
+    "unvertraeglichkeiten": "Вкажіть непереносимості або алергії *"
+  },
+  "sepa": {
+    "agb1": "Я прочитав(ла)",
+    "agb2": "Умови використання",
+    "agb3": "*",
+    "widerruf1": "Я прочитав(ла)",
+    "widerruf2": "Політику конфіденційності міста Bad Waldsee",
+    "widerruf3": "*",
+    "datenschutz1": "Я дозволяю місту Bad Waldsee у будь-який час стягувати повторювані платежі за допомогою SEPA-дебету, з можливістю відкликання",
+    "datenschutz2": "Інформація про SEPA-мандат",
+    "datenschutz3": "*",
+    "kontoinhaber": "Власник рахунку *",
+    "iban": "IBAN *",
+    "bank": "Банк"
+  },
+  "offer": {
+    "angebot": "Пропозиція догляду *",
+    "tageAuswaehlen": "Виберіть дні:",
+    "geschwisterHinweis": "Брат або сестра вже відвідує цю пропозицію або також зареєстрований(а)",
+    "geschwisterName": "Ім'я брата/сестри *",
+    "entfernen": "Видалити",
+    "hinzufuegen": "Додати пакет догляду"
+  },
+  "buttons": {
+    "zurueck": "Назад",
+    "weiter": "Далі",
+    "buchen": "Забронювати зараз з оплатою"
+  }
+}

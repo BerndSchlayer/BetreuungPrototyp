@@ -1,0 +1,74 @@
+{
+  "title": "Book childcare offer",
+  "next": "Next",
+  "book": "Book now (with costs)",
+  "personTab": "Registering person",
+  "childTab": "Child",
+  "notesTab": "Notes",
+  "sepaTab": "SEPA",
+  "offerTab": "Childcare offer",
+  "child": {
+    "vorname": "First name *",
+    "nachname": "Last name *",
+    "geburtsdatum": "Date of birth *",
+    "geschlecht": "Gender *",
+    "geschlechtMaennlich": "male",
+    "geschlechtWeiblich": "female",
+    "geschlechtDivers": "diverse",
+    "geschlechtOhneAngabe": "no indication",
+    "schule": "School *",
+    "klasse": "Class at start of care *"
+  },
+  "person": {
+    "anrede": "Salutation *",
+    "salutationHerr": "Mr",
+    "salutationFrau": "Ms",
+    "salutationDivers": "Other",
+    "vorname": "First name *",
+    "nachname": "Last name *",
+    "plz": "ZIP code *",
+    "ort": "City *",
+    "strasse": "Street *",
+    "telefon": "Phone / Mobile *",
+    "email": "Email address *"
+  },
+  "notes": {
+    "betreuungsart": "Child leaves care by*",
+    "selbststaendig": "goes home independently",
+    "abholung": "picked up by",
+    "bus": "takes the bus home",
+    "abholName": "Name of the person picking up *",
+    "buslinie": "Bus line *",
+    "nimmtMedikamente": "My child takes medication",
+    "medikamente": "Please specify medication *",
+    "hatUnvertraeglichkeiten": "My child has the following intolerances or allergies",
+    "unvertraeglichkeiten": "Please specify intolerances or allergies *"
+  },
+  "sepa": {
+    "agb1": "I have read the",
+    "agb2": "terms of use",
+    "agb3": "*",
+    "widerruf1": "I have read the",
+    "widerruf2": "privacy policy of the city of Bad Waldsee",
+    "widerruf3": "*",
+    "datenschutz1": "I hereby authorize the city of Bad Waldsee to collect recurring payments by SEPA direct debit at any time, revocable",
+    "datenschutz2": "Notes on the SEPA mandate",
+    "datenschutz3": "*",
+    "kontoinhaber": "Account holder *",
+    "iban": "IBAN *",
+    "bank": "Bank"
+  },
+  "offer": {
+    "angebot": "Care offer *",
+    "tageAuswaehlen": "Select days:",
+    "geschwisterHinweis": "A sibling already attends this offer or has also been registered",
+    "geschwisterName": "Name of sibling *",
+    "entfernen": "Remove",
+    "hinzufuegen": "Add care package"
+  },
+  "buttons": {
+    "zurueck": "Back",
+    "weiter": "Next",
+    "buchen": "Book now with costs"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "title": "Bakım teklifini rezerve et",
+  "next": "İleri",
+  "book": "Şimdi ücretli rezerve et",
+  "personTab": "Kayıt yapan kişi",
+  "childTab": "Çocuk",
+  "notesTab": "Notlar",
+  "sepaTab": "SEPA",
+  "offerTab": "Bakım teklifi",
+  "child": {
+    "vorname": "Ad *",
+    "nachname": "Soyad *",
+    "geburtsdatum": "Doğum tarihi *",
+    "geschlecht": "Cinsiyet *",
+    "geschlechtMaennlich": "Erkek",
+    "geschlechtWeiblich": "Kadın",
+    "geschlechtDivers": "Çeşitli",
+    "geschlechtOhneAngabe": "Belirtilmemiş",
+    "schule": "Okul *",
+    "klasse": "Bakım başlangıcındaki sınıf *"
+  },
+  "person": {
+    "anrede": "Hitap *",
+    "salutationHerr": "Bay",
+    "salutationFrau": "Bayan",
+    "salutationDivers": "Çeşitli",
+    "vorname": "Ad *",
+    "nachname": "Soyad *",
+    "plz": "Posta kodu *",
+    "ort": "Şehir *",
+    "strasse": "Sokak *",
+    "telefon": "Telefon / mobil *",
+    "email": "E-posta adresi *"
+  },
+  "notes": {
+    "betreuungsart": "Çocuk bakımdan şu şekilde ayrılır*",
+    "selbststaendig": "Kendi başına eve gider",
+    "abholung": "Şu kişi tarafından alınır",
+    "bus": "Otobüsle eve gider",
+    "abholName": "Çocuğu alan kişinin adı *",
+    "buslinie": "Otobüs hattı *",
+    "nimmtMedikamente": "Çocuğum ilaç alıyor",
+    "medikamente": "Lütfen ilaçları belirtin *",
+    "hatUnvertraeglichkeiten": "Çocuğumun intoleransı veya alerjisi var",
+    "unvertraeglichkeiten": "Lütfen intolerans veya alerjileri belirtin *"
+  },
+  "sepa": {
+    "agb1": "Şunları okudum",
+    "agb2": "Kullanım koşulları",
+    "agb3": "*",
+    "widerruf1": "Şunu okudum",
+    "widerruf2": "Bad Waldsee şehrinin gizlilik politikasını",
+    "widerruf3": "*",
+    "datenschutz1": "Bad Waldsee şehrine, SEPA otomatik ödeme ile her zaman iptal edilebilir şekilde tekrar eden ödemeleri tahsil etme yetkisi veriyorum",
+    "datenschutz2": "SEPA yetkilendirmesiyle ilgili notlar",
+    "datenschutz3": "*",
+    "kontoinhaber": "Hesap sahibi *",
+    "iban": "IBAN *",
+    "bank": "Banka"
+  },
+  "offer": {
+    "angebot": "Bakım teklifi *",
+    "tageAuswaehlen": "Günleri seçin:",
+    "geschwisterHinweis": "Bir kardeş zaten bu teklife katılıyor veya ayrıca kaydedildi",
+    "geschwisterName": "Kardeşin adı *",
+    "entfernen": "Kaldır",
+    "hinzufuegen": "Bakım paketi ekle"
+  },
+  "buttons": {
+    "zurueck": "Geri",
+    "weiter": "İleri",
+    "buchen": "Şimdi ücretli rezerve et"
+  }
+}

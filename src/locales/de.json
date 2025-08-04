@@ -1,0 +1,74 @@
+{
+  "title": "Betreuungsangebot buchen",
+  "next": "Weiter",
+  "book": "Jetzt kostenpflichtig buchen",
+  "personTab": "Anmeldende Person",
+  "childTab": "Kind",
+  "notesTab": "Hinweise",
+  "sepaTab": "SEPA",
+  "offerTab": "Betreuungsangebot",
+  "child": {
+    "vorname": "Vorname *",
+    "nachname": "Nachname *",
+    "geburtsdatum": "Geburtsdatum *",
+    "geschlecht": "Geschlecht *",
+    "geschlechtMaennlich": "männlich",
+    "geschlechtWeiblich": "weiblich",
+    "geschlechtDivers": "divers",
+    "geschlechtOhneAngabe": "ohne Angabe",
+    "schule": "Schule *",
+    "klasse": "Klasse zum Betreuungsbeginn *"
+  },
+  "person": {
+    "anrede": "Anrede *",
+    "salutationHerr": "Herr",
+    "salutationFrau": "Frau",
+    "salutationDivers": "Divers",
+    "vorname": "Vorname *",
+    "nachname": "Nachname *",
+    "plz": "PLZ *",
+    "ort": "Ort *",
+    "strasse": "Straße *",
+    "telefon": "Telefon / Mobil *",
+    "email": "E-Mail Adresse *"
+  },
+  "notes": {
+    "betreuungsart": "Kind verlässt die Betreuung indem es*",
+    "selbststaendig": "selbständig nach Hause geht",
+    "abholung": "abgeholt wird durch",
+    "bus": "mit dem Bus nach Hause fährt",
+    "abholName": "Name der abholenden Person *",
+    "buslinie": "Buslinie *",
+    "nimmtMedikamente": "Mein Kind nimmt Medikamente",
+    "medikamente": "Bitte Medikamente angeben *",
+    "hatUnvertraeglichkeiten": "Mein Kind hat folgende Unverträglichkeiten oder Allergien",
+    "unvertraeglichkeiten": "Bitte Unverträglichkeiten oder Allergien angeben *"
+  },
+  "sepa": {
+    "agb1": "Ich habe die",
+    "agb2": "Nutzungsbedingungen",
+    "agb3": "gelesen*",
+    "widerruf1": "Ich habe die",
+    "widerruf2": "Datenschutzerklärung der Stadt Bad Waldsee",
+    "widerruf3": "gelesen*",
+    "datenschutz1": "Hiermit ermächtige ich die Stadt Bad Waldsee jederzeit widerruflich wiederkehrende Zahlungen bei Fälligkeit mittels SEPA-Basislastschrift einzuziehen",
+    "datenschutz2": "Hinweise zum SEPA-Mandat",
+    "datenschutz3": "*",
+    "kontoinhaber": "Kontoinhaber *",
+    "iban": "IBAN *",
+    "bank": "Bank"
+  },
+  "offer": {
+    "angebot": "Betreuungsangebot *",
+    "tageAuswaehlen": "Tage auswählen:",
+    "geschwisterHinweis": "Ein Geschwisterkind besucht bereits dieses Angebot bzw. wurde ebenfalls angemeldet",
+    "geschwisterName": "Name des Geschwisterkinds *",
+    "entfernen": "Entfernen",
+    "hinzufuegen": "Betreuungspaket hinzufügen"
+  },
+  "buttons": {
+    "zurueck": "Zurück",
+    "weiter": "Weiter",
+    "buchen": "Jetzt kostenpflichtig buchen"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "title": "Réserver une offre de garde",
+  "next": "Suivant",
+  "book": "Réserver maintenant (payant)",
+  "personTab": "Personne inscrite",
+  "childTab": "Enfant",
+  "notesTab": "Remarques",
+  "sepaTab": "SEPA",
+  "offerTab": "Offre de garde",
+  "child": {
+    "vorname": "Prénom *",
+    "nachname": "Nom *",
+    "geburtsdatum": "Date de naissance *",
+    "geschlecht": "Sexe *",
+    "geschlechtMaennlich": "masculin",
+    "geschlechtWeiblich": "féminin",
+    "geschlechtDivers": "divers",
+    "geschlechtOhneAngabe": "sans indication",
+    "schule": "École *",
+    "klasse": "Classe au début de la garde *"
+  },
+  "person": {
+    "anrede": "Civilité *",
+    "salutationHerr": "Monsieur",
+    "salutationFrau": "Madame",
+    "salutationDivers": "Autre",
+    "vorname": "Prénom *",
+    "nachname": "Nom *",
+    "plz": "Code postal *",
+    "ort": "Ville *",
+    "strasse": "Rue *",
+    "telefon": "Téléphone / Mobile *",
+    "email": "Adresse e-mail *"
+  },
+  "notes": {
+    "betreuungsart": "L'enfant quitte la garde par*",
+    "selbststaendig": "rentre à la maison de façon autonome",
+    "abholung": "récupéré par",
+    "bus": "prend le bus pour rentrer chez lui",
+    "abholName": "Nom de la personne qui récupère *",
+    "buslinie": "Ligne de bus *",
+    "nimmtMedikamente": "Mon enfant prend des médicaments",
+    "medikamente": "Veuillez indiquer les médicaments *",
+    "hatUnvertraeglichkeiten": "Mon enfant a les intolérances ou allergies suivantes",
+    "unvertraeglichkeiten": "Veuillez indiquer les intolérances ou allergies *"
+  },
+  "sepa": {
+    "agb1": "J'ai lu les",
+    "agb2": "conditions d'utilisation",
+    "agb3": "*",
+    "widerruf1": "J'ai lu la",
+    "widerruf2": "déclaration de confidentialité de la ville de Bad Waldsee",
+    "widerruf3": "*",
+    "datenschutz1": "J'autorise par la présente la ville de Bad Waldsee à prélever à tout moment des paiements récurrents par prélèvement SEPA, révocable",
+    "datenschutz2": "Remarques sur le mandat SEPA",
+    "datenschutz3": "*",
+    "kontoinhaber": "Titulaire du compte *",
+    "iban": "IBAN *",
+    "bank": "Banque"
+  },
+  "offer": {
+    "angebot": "Offre de garde *",
+    "tageAuswaehlen": "Sélectionner les jours :",
+    "geschwisterHinweis": "Un frère ou une sœur fréquente déjà cette offre ou a également été inscrit(e)",
+    "geschwisterName": "Nom du frère ou de la sœur *",
+    "entfernen": "Supprimer",
+    "hinzufuegen": "Ajouter un forfait de garde"
+  },
+  "buttons": {
+    "zurueck": "Retour",
+    "weiter": "Suivant",
+    "buchen": "Réserver maintenant avec frais"
+  }
+}

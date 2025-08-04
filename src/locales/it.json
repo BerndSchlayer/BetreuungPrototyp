@@ -1,0 +1,74 @@
+{
+  "title": "Prenota offerta di assistenza",
+  "next": "Avanti",
+  "book": "Prenota ora a pagamento",
+  "personTab": "Persona che registra",
+  "childTab": "Bambino",
+  "notesTab": "Note",
+  "sepaTab": "SEPA",
+  "offerTab": "Offerta di assistenza",
+  "child": {
+    "vorname": "Nome *",
+    "nachname": "Cognome *",
+    "geburtsdatum": "Data di nascita *",
+    "geschlecht": "Genere *",
+    "geschlechtMaennlich": "Maschio",
+    "geschlechtWeiblich": "Femmina",
+    "geschlechtDivers": "Diverso",
+    "geschlechtOhneAngabe": "Non specificato",
+    "schule": "Scuola *",
+    "klasse": "Classe all'inizio dell'assistenza *"
+  },
+  "person": {
+    "anrede": "Saluto *",
+    "salutationHerr": "Signore",
+    "salutationFrau": "Signora",
+    "salutationDivers": "Diverso",
+    "vorname": "Nome *",
+    "nachname": "Cognome *",
+    "plz": "CAP *",
+    "ort": "Città *",
+    "strasse": "Via *",
+    "telefon": "Telefono / cellulare *",
+    "email": "Indirizzo email *"
+  },
+  "notes": {
+    "betreuungsart": "Il bambino lascia l'assistenza tramite*",
+    "selbststaendig": "Va a casa da solo",
+    "abholung": "Viene prelevato da",
+    "bus": "Va a casa in autobus",
+    "abholName": "Nome della persona che preleva *",
+    "buslinie": "Linea autobus *",
+    "nimmtMedikamente": "Mio figlio prende farmaci",
+    "medikamente": "Si prega di indicare i farmaci *",
+    "hatUnvertraeglichkeiten": "Mio figlio ha intolleranze o allergie",
+    "unvertraeglichkeiten": "Si prega di indicare intolleranze o allergie *"
+  },
+  "sepa": {
+    "agb1": "Ho letto le",
+    "agb2": "Condizioni d'uso",
+    "agb3": "*",
+    "widerruf1": "Ho letto la",
+    "widerruf2": "Informativa sulla privacy della città di Bad Waldsee",
+    "widerruf3": "*",
+    "datenschutz1": "Autorizzo la città di Bad Waldsee a prelevare pagamenti ricorrenti tramite addebito diretto SEPA in qualsiasi momento revocabile",
+    "datenschutz2": "Note sul mandato SEPA",
+    "datenschutz3": "*",
+    "kontoinhaber": "Titolare del conto *",
+    "iban": "IBAN *",
+    "bank": "Banca"
+  },
+  "offer": {
+    "angebot": "Offerta di assistenza *",
+    "tageAuswaehlen": "Seleziona giorni:",
+    "geschwisterHinweis": "Un fratello frequenta già questa offerta o è stato anch'esso registrato",
+    "geschwisterName": "Nome del fratello *",
+    "entfernen": "Rimuovi",
+    "hinzufuegen": "Aggiungi pacchetto di assistenza"
+  },
+  "buttons": {
+    "zurueck": "Indietro",
+    "weiter": "Avanti",
+    "buchen": "Prenota ora a pagamento"
+  }
+}

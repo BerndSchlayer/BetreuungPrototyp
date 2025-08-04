@@ -1,0 +1,74 @@
+{
+  "title": "Reservar oferta de cuidado",
+  "next": "Siguiente",
+  "book": "Reservar ahora con coste",
+  "personTab": "Persona que registra",
+  "childTab": "Niño",
+  "notesTab": "Notas",
+  "sepaTab": "SEPA",
+  "offerTab": "Oferta de cuidado",
+  "child": {
+    "vorname": "Nombre *",
+    "nachname": "Apellido *",
+    "geburtsdatum": "Fecha de nacimiento *",
+    "geschlecht": "Género *",
+    "geschlechtMaennlich": "Masculino",
+    "geschlechtWeiblich": "Femenino",
+    "geschlechtDivers": "Diverso",
+    "geschlechtOhneAngabe": "Sin especificar",
+    "schule": "Escuela *",
+    "klasse": "Clase al inicio del cuidado *"
+  },
+  "person": {
+    "anrede": "Saludo *",
+    "salutationHerr": "Señor",
+    "salutationFrau": "Señora",
+    "salutationDivers": "Diverso",
+    "vorname": "Nombre *",
+    "nachname": "Apellido *",
+    "plz": "Código postal *",
+    "ort": "Ciudad *",
+    "strasse": "Calle *",
+    "telefon": "Teléfono / móvil *",
+    "email": "Dirección de correo electrónico *"
+  },
+  "notes": {
+    "betreuungsart": "El niño sale del cuidado mediante*",
+    "selbststaendig": "Va solo a casa",
+    "abholung": "Recogido por",
+    "bus": "Va a casa en autobús",
+    "abholName": "Nombre de la persona que recoge *",
+    "buslinie": "Línea de autobús *",
+    "nimmtMedikamente": "Mi hijo toma medicamentos",
+    "medikamente": "Por favor, indique los medicamentos *",
+    "hatUnvertraeglichkeiten": "Mi hijo tiene intolerancias o alergias",
+    "unvertraeglichkeiten": "Por favor, indique intolerancias o alergias *"
+  },
+  "sepa": {
+    "agb1": "He leído las",
+    "agb2": "Condiciones de uso",
+    "agb3": "*",
+    "widerruf1": "He leído la",
+    "widerruf2": "Política de privacidad de la ciudad de Bad Waldsee",
+    "widerruf3": "*",
+    "datenschutz1": "Autorizo a la ciudad de Bad Waldsee a cobrar pagos recurrentes mediante domiciliación SEPA en cualquier momento revocable",
+    "datenschutz2": "Notas sobre el mandato SEPA",
+    "datenschutz3": "*",
+    "kontoinhaber": "Titular de la cuenta *",
+    "iban": "IBAN *",
+    "bank": "Banco"
+  },
+  "offer": {
+    "angebot": "Oferta de cuidado *",
+    "tageAuswaehlen": "Seleccionar días:",
+    "geschwisterHinweis": "Un hermano ya asiste a esta oferta o también ha sido registrado",
+    "geschwisterName": "Nombre del hermano *",
+    "entfernen": "Eliminar",
+    "hinzufuegen": "Añadir paquete de cuidado"
+  },
+  "buttons": {
+    "zurueck": "Atrás",
+    "weiter": "Siguiente",
+    "buchen": "Reservar ahora con coste"
+  }
+}
