@@ -1,4 +1,5 @@
-import React, { useRef, useState, ChangeEvent, KeyboardEvent, FocusEvent } from "react";
+import React, { useRef, useState } from "react";
+import type { ChangeEvent, KeyboardEvent, FocusEvent } from "react";
 import { X } from "lucide-react";
 import { format, parseISO, isValid } from "date-fns";
 import { de } from "date-fns/locale";
@@ -8,7 +9,12 @@ import { t } from "i18next";
 // Kalender-Icon SVG
 function CalendarIcon({ className = "w-5 h-5" }: { className?: string }) {
   return (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
       <rect x="3" y="8" width="18" height="13" rx="2" strokeWidth="2" />
       <path strokeWidth="2" strokeLinecap="round" d="M16 2v4M8 2v4M3 10h18" />
     </svg>
@@ -18,8 +24,8 @@ function CalendarIcon({ className = "w-5 h-5" }: { className?: string }) {
 interface SimpleCalendarProps {
   selected?: Date | null;
   onSelect: (date: Date) => void;
-  minDate?: Date;
-  maxDate?: Date;
+  minDate?: Date | undefined;
+  maxDate?: Date | undefined;
   locale?: Locale;
   onClose: () => void;
   autoFocus?: boolean;
@@ -35,11 +41,15 @@ function SimpleCalendar({
   locale = de,
   onClose,
   autoFocus,
-  popupStyle // <-- hinzugefügt
+  popupStyle, // <-- hinzugefügt
 }: SimpleCalendarProps) {
   const today = new Date();
-  const [month, setMonth] = useState<number>(selected ? selected.getMonth() : today.getMonth());
-  const [year, setYear] = useState<number>(selected ? selected.getFullYear() : today.getFullYear());
+  const [month, setMonth] = useState<number>(
+    selected ? selected.getMonth() : today.getMonth()
+  );
+  const [year, setYear] = useState<number>(
+    selected ? selected.getFullYear() : today.getFullYear()
+  );
   const calendarRef = useRef<HTMLDivElement>(null); // <--- Typisieren
   // NEU: Props für dynamische Breite/Position
   const [popupStyleState, setPopupStyle] = useState<React.CSSProperties>({});
@@ -56,10 +66,7 @@ function SimpleCalendar({
 
   function handleDayClick(day: number) {
     const date = new Date(year, month, day);
-    if (
-      (minDate && date < minDate) ||
-      (maxDate && date > maxDate)
-    ) return;
+    if ((minDate && date < minDate) || (maxDate && date > maxDate)) return;
     onSelect(date);
     onClose();
   }
@@ -78,11 +85,11 @@ function SimpleCalendar({
   // JS getDay(): Sonntag=0, Montag=1, ..., Samstag=6
   // Wir wollen: Montag=0, ..., Sonntag=6
   let firstDay = new Date(year, month, 1).getDay();
-  firstDay = (firstDay === 0 ? 6 : firstDay - 1);
+  firstDay = firstDay === 0 ? 6 : firstDay - 1;
   const numDays = daysInMonth(year, month);
   // Kalender-Tage in Wochen aufteilen
-  const weeks: (number|null)[][] = [];
-  let week: (number|null)[] = [];
+  const weeks: (number | null)[][] = [];
+  let week: (number | null)[] = [];
   // Leere Felder für die Tage vor dem 1.
   for (let i = 0; i < firstDay; i++) week.push(null);
   for (let d = 1; d <= numDays; d++) {
@@ -105,13 +112,19 @@ function SimpleCalendar({
       style={popupStyle} // <-- hinzugefügt
     >
       <div className="flex justify-between items-center mb-2">
-        <button onClick={() => setMonth(m => (m === 0 ? 11 : m - 1))}>&lt;</button>
+        <button onClick={() => setMonth((m) => (m === 0 ? 11 : m - 1))}>
+          &lt;
+        </button>
         <span>{format(new Date(year, month, 1), "MMMM yyyy", { locale })}</span>
-        <button onClick={() => setMonth(m => (m === 11 ? 0 : m + 1))}>&gt;</button>
+        <button onClick={() => setMonth((m) => (m === 11 ? 0 : m + 1))}>
+          &gt;
+        </button>
       </div>
       <div className="grid grid-cols-7 gap-1 text-xs mb-1">
-        {weekDays.map(key => (
-          <div key={key} className="font-bold text-center">{t(`DateInput:${key}`)}</div>
+        {weekDays.map((key) => (
+          <div key={key} className="font-bold text-center">
+            {t(`DateInput:${key}`)}
+          </div>
         ))}
       </div>
       <div>
@@ -120,7 +133,17 @@ function SimpleCalendar({
             {week.map((d, di) => (
               <button
                 key={di}
-                className={`h-8 w-8 text-center rounded ${d && selected && selected.getDate() === d && selected.getMonth() === month && selected.getFullYear() === year ? "bg-blue-500 text-white" : d ? "hover:bg-gray-200" : ""}`}
+                className={`h-8 w-8 text-center rounded ${
+                  d &&
+                  selected &&
+                  selected.getDate() === d &&
+                  selected.getMonth() === month &&
+                  selected.getFullYear() === year
+                    ? "bg-blue-500 text-white"
+                    : d
+                    ? "hover:bg-gray-200"
+                    : ""
+                }`}
                 disabled={!d}
                 onClick={() => d && handleDayClick(d)}
               >
@@ -131,7 +154,9 @@ function SimpleCalendar({
         ))}
       </div>
       <div className="flex justify-end mt-2">
-        <button onClick={onClose} className="text-sm px-2 py-1">{t('DateInput:Close')}</button>
+        <button onClick={onClose} className="text-sm px-2 py-1">
+          {t("DateInput:Close")}
+        </button>
       </div>
     </div>
   );
@@ -164,7 +189,9 @@ export default function DateInput({
 }: DateInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>(value ? format(parseISO(value), "dd.MM.yyyy") : "");
+  const [inputValue, setInputValue] = useState<string>(
+    value ? format(parseISO(value), "dd.MM.yyyy") : ""
+  );
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
   const [calendarAutoFocus, setCalendarAutoFocus] = useState<boolean>(false);
   // NEU: Kalender-Ref für dynamische Breite/Position
@@ -176,7 +203,9 @@ export default function DateInput({
       try {
         const d = parseISO(value);
         if (isValid(d)) setInputValue(format(d, "dd.MM.yyyy"));
-      } catch { setInputValue(""); }
+      } catch {
+        setInputValue("");
+      }
     }
   }, [value]);
 
@@ -185,9 +214,11 @@ export default function DateInput({
     const parts = inputValue.split(".");
     if (parts.length === 3) {
       const [d, m, y] = parts;
-      const iso = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
-      const parsed = parseISO(iso);
-      if (isValid(parsed)) dateValue = parsed;
+      if (d && m && y) {
+        const iso = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+        const parsed = parseISO(iso);
+        if (isValid(parsed)) dateValue = parsed;
+      }
     }
   }
 
@@ -199,22 +230,41 @@ export default function DateInput({
     const cleaned = str.replace(/[^0-9.]/g, "");
     // 1. 8-stellig ohne Punkt: TTMMYYYY
     if (/^\d{8}$/.test(cleaned)) {
-      const t = cleaned.slice(0,2), m = cleaned.slice(2,4), y = cleaned.slice(4);
-      return `${t}.${m}.${y}`;
+      const t = cleaned.slice(0, 2),
+        m = cleaned.slice(2, 4),
+        y = cleaned.slice(4);
+      if (
+        typeof t === "string" &&
+        typeof m === "string" &&
+        typeof y === "string" &&
+        t.length &&
+        m.length &&
+        y.length
+      ) {
+        return `${t}.${m}.${y}`;
+      }
     }
     // 2. 1-2-stellig: Tag
     if (/^\d{1,2}$/.test(cleaned)) {
-      return `${cleaned.padStart(2,"0")}.${String(month).padStart(2,"0")}.${year}`;
+      return `${cleaned.padStart(2, "0")}.${String(month).padStart(
+        2,
+        "0"
+      )}.${year}`;
     }
     // 3. TT.MM
     if (/^\d{1,2}\.\d{1,2}$/.test(cleaned)) {
       const [t, m] = cleaned.split(".");
-      return `${t.padStart(2,"0")}.${m.padStart(2,"0")}.${year}`;
+      if (t && m) {
+        return `${t.padStart(2, "0")}.${m.padStart(2, "0")}.${year}`;
+      }
     }
     // 4. 4-stellig: TTMM
     if (/^\d{4}$/.test(cleaned)) {
-      const t = cleaned.slice(0,2), m = cleaned.slice(2,4);
-      return `${t}.${m}.${year}`;
+      const t = cleaned.slice(0, 2),
+        m = cleaned.slice(2, 4);
+      if (t && m) {
+        return `${t}.${m}.${year}`;
+      }
     }
     // 5. Bereits TT.MM.JJJJ oder leer
     if (/^\d{2}\.\d{2}\.\d{4}$/.test(cleaned)) {
@@ -231,10 +281,12 @@ export default function DateInput({
     const parts = str.split(".");
     if (parts.length === 3) {
       const [d, m, y] = parts;
-      const iso = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
-      const parsed = parseISO(iso);
-      const valid = isValid(parsed);
-      if (valid) return iso;
+      if (d && m && y) {
+        const iso = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+        const parsed = parseISO(iso);
+        const valid = isValid(parsed);
+        if (valid) return iso;
+      }
     }
     return null;
   }
@@ -293,7 +345,9 @@ export default function DateInput({
       minWidth: "17rem",
       width: "17rem",
       left: 0,
-      top: inputRef.current ? inputRef.current.offsetTop + inputRef.current.offsetHeight : '100%',
+      top: inputRef.current
+        ? inputRef.current.offsetTop + inputRef.current.offsetHeight
+        : "100%",
     };
   }
 
@@ -316,9 +370,9 @@ export default function DateInput({
       {/* Kalender-Icon mit Popup-Trigger */}
       <span
         className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 flex items-center cursor-pointer z-10"
-        onMouseDown={e => {
+        onMouseDown={(e) => {
           e.preventDefault();
-          if (!disabled) setShowCalendar(s => !s);
+          if (!disabled) setShowCalendar((s) => !s);
         }}
         tabIndex={-1}
         title="Kalender öffnen"
@@ -341,13 +395,15 @@ export default function DateInput({
       {/* Floating Label: Dynamisch */}
       <label
         htmlFor={rest.id}
-        className={
-          `absolute left-2 px-1 z-20 text-xs text-gray-500 pointer-events-none transition-all duration-200
+        className={`absolute left-2 px-1 z-20 text-xs text-gray-500 pointer-events-none transition-all duration-200
           bg-white
-          ${!inputValue ? 'top-1/2 -translate-y-1/2' : 'top-0 -translate-y-0 text-xs text-blue-600'}
-          peer-focus:top-0 peer-focus:-translate-y-0 peer-focus:text-xs peer-focus:text-blue-600`
-        }
-        style={{lineHeight: '1', paddingLeft: 2, paddingRight: 2}}
+          ${
+            !inputValue
+              ? "top-1/2 -translate-y-1/2"
+              : "top-0 -translate-y-0 text-xs text-blue-600"
+          }
+          peer-focus:top-0 peer-focus:-translate-y-0 peer-focus:text-xs peer-focus:text-blue-600`}
+        style={{ lineHeight: "1", paddingLeft: 2, paddingRight: 2 }}
       >
         {label}
       </label>
@@ -355,7 +411,7 @@ export default function DateInput({
       {clearable && value && !disabled && (
         <span
           className="absolute right-10 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer p-1 z-10 flex items-center"
-          onMouseDown={e => {
+          onMouseDown={(e) => {
             e.preventDefault();
             setInputValue("");
             onChange(null);
