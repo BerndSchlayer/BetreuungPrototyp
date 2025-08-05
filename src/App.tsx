@@ -112,7 +112,7 @@ function App() {
   // Validierung für Pflichtfelder der ersten Seite
   const [step, setStep] = useState(0);
 
-  const isTestMode = () => true;
+  const isTestMode = () => false;
 
   // Fokus nach Step-Wechsel setzen
   useEffect(() => {
@@ -327,6 +327,9 @@ function App() {
     if (step > 0) setStep(step - 1);
   };
 
+  const [geschwister, setGeschwister] = useState(false);
+  const [geschwisterName, setGeschwisterName] = useState("");
+
   return (
     <div className="max-w-2xl mx-auto my-8 p-8 border border-gray-200 rounded-lg bg-white shadow relative">
       {/* Language Switcher oben rechts */}
@@ -335,37 +338,32 @@ function App() {
       </div>
       <h1 className="text-2xl font-bold mb-6 text-left">{t("title")}</h1>
       <div className="flex mb-4 overflow-x-auto flex-nowrap gap-2">
-        {[
-          "personTab",
-          "childTab",
-          "notesTab",
-          "sepaTab",
-          "offerTab",
-          "reviewTab",
-        ].map((key, i) => (
-          <div
-            key={i}
-            className={`flex flex-col items-center min-w-[48px] px-2 py-1 select-none ${
-              step === i
-                ? "border-b-2 border-blue-600 font-bold text-blue-600"
-                : "border-b-2 border-gray-300 text-gray-500"
-            }`}
-          >
-            <span
-              className={`inline-block w-7 h-7 rounded-full text-white font-bold flex items-center justify-center mb-1 ${
-                step === i ? "bg-blue-600" : "bg-gray-300"
+        {["personTab", "childTab", "notesTab", "sepaTab", "offerTab"].map(
+          (key, i) => (
+            <div
+              key={i}
+              className={`flex flex-col items-center min-w-[48px] px-2 py-1 select-none ${
+                step === i
+                  ? "border-b-2 border-blue-600 font-bold text-blue-600"
+                  : "border-b-2 border-gray-300 text-gray-500"
               }`}
-              title={t(key)}
             >
-              {i + 1}
-            </span>
-            {step === i && (
-              <span className="text-xs text-center whitespace-nowrap">
-                {t(key)}
+              <span
+                className={`inline-block w-7 h-7 rounded-full text-white font-bold flex items-center justify-center mb-1 ${
+                  step === i ? "bg-blue-600" : "bg-gray-300"
+                }`}
+                title={t(key)}
+              >
+                {i + 1}
               </span>
-            )}
-          </div>
-        ))}
+              {step === i && (
+                <span className="text-xs text-center whitespace-nowrap">
+                  {t(key)}
+                </span>
+              )}
+            </div>
+          )
+        )}
       </div>
       <div className="min-h-[120px] mb-8">
         {step === 0 && (
@@ -690,7 +688,7 @@ function App() {
               <label htmlFor="widerruf" className="font-medium">
                 {t("sepa.widerruf1")}{" "}
                 <a
-                  href="https://www.kitaweb-bw.de/kita/datei/436709/Datenschutzerkl%C3%A4rung_Stadt_Bad_Waldsee.PDF"
+                  href="https://www.kitaweb-bw.de/kita/datei/436709/Datenschutzerkl%C3%A4ung_Stadt_Bad_Waldsee.PDF"
                   className="text-blue-600 underline"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -895,165 +893,37 @@ function App() {
                   })()}
                 </tbody>
               </table>
-            </div>
-          </div>
-        )}
-        {step === 5 && (
-          <div>
-            {angebote.map((a, idx) => {
-              // Dynamische Optionen je nach gewählter Schule
-              const schuleObj = Array.isArray(angeboteMatrix)
-                ? angeboteMatrix.find((s) => s.schule === child.schule)
-                : undefined;
-              const angebotOptions =
-                schuleObj && Array.isArray(schuleObj.angebote)
-                  ? schuleObj.angebote.map((ag) => ({
-                      label: ag.angebot,
-                      value: ag.angebot,
-                    }))
-                  : [];
-              // Finde die Zeiten für das aktuell gewählte Angebot
-              const angebotObj =
-                schuleObj && Array.isArray(schuleObj.angebote)
-                  ? schuleObj.angebote.find((ag) => ag.angebot === a.angebot)
-                  : undefined;
-              const tageMitUhrzeit =
-                angebotObj && Array.isArray(angebotObj.zeiten)
-                  ? angebotObj.zeiten
-                  : [];
-              // Nur das erste Paket bekommt den Ref für den Fokus
-              const angebotSelectRef = idx === 0 ? refAngebotSelect : undefined;
-              return (
-                <div
-                  key={idx}
-                  className="mb-6 p-4 border rounded-lg bg-gray-50"
-                >
-                  <form className="grid grid-cols-3 gap-x-4 gap-y-2">
-                    <div className="col-span-3">
-                      <FloatingSelect
-                        label={t("offer.angebot")}
-                        name="angebot"
-                        required
-                        options={angebotOptions}
-                        value={a.angebot}
-                        onChange={(e) => {
-                          let value: string;
-                          if (typeof e === "string") {
-                            value = e;
-                          } else if (e && e.target) {
-                            value = e.target.value;
-                          } else {
-                            value = "";
-                          }
-                          handleAngebotChange(idx, "angebot", value);
-                        }}
-                        ref={angebotSelectRef}
-                      />
-                    </div>
-                    {/* Checkboxen für die Tage */}
-                    {tageMitUhrzeit.length > 0 && (
-                      <div className="col-span-3 mt-2">
-                        <label className="block font-medium mb-1">
-                          {t("offer.tageAuswaehlen")}
-                        </label>
-                        <div className="flex flex-wrap gap-4">
-                          {tageMitUhrzeit.map((z) => (
-                            <label
-                              key={z.tag}
-                              className="flex items-center gap-2"
-                            >
-                              <input
-                                type="checkbox"
-                                checked={a.ausgewaehlteTage.includes(z.tag)}
-                                onChange={(e) =>
-                                  handleTagCheckbox(
-                                    idx,
-                                    z.tag,
-                                    e.target.checked
-                                  )
-                                }
-                              />
-                              <span>
-                                {t(`weekdays.${z.tag}`) || z.tag}
-                                {typeof (z as any)?.uhrzeitVon === "string" ||
-                                typeof (z as any)?.uhrzeitBis === "string" ? (
-                                  <span className="ml-1 text-xs text-gray-500">
-                                    ({(z as any)?.uhrzeitVon ?? ""}
-                                    {(z as any)?.uhrzeitVon &&
-                                    (z as any)?.uhrzeitBis
-                                      ? "–"
-                                      : ""}
-                                    {(z as any)?.uhrzeitBis ?? ""})
-                                  </span>
-                                ) : null}
-                              </span>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {/* Geschwisterkind-Checkbox nur anzeigen, wenn ein Angebot gewählt ist */}
-                    {a.angebot && (
-                      <div className="col-span-3 flex items-center mt-2">
-                        <input
-                          type="checkbox"
-                          id={`geschwister-${idx}`}
-                          name="geschwister"
-                          checked={a.geschwister}
-                          onChange={(e) =>
-                            handleGeschwisterCheckbox(idx, e.target.checked)
-                          }
-                          className="mr-2"
-                        />
-                        <label
-                          htmlFor={`geschwister-${idx}`}
-                          className="font-medium"
-                        >
-                          {t("offer.geschwisterHinweis")}
-                        </label>
-                      </div>
-                    )}
-                    {a.geschwister && (
-                      <div className="col-span-3">
-                        <FloatingInput
-                          label={t("offer.geschwisterName")}
-                          name="geschwisterName"
-                          required
-                          value={a.geschwisterName}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            handleAngebotChange(
-                              idx,
-                              "geschwisterName",
-                              e.target.value
-                            )
-                          }
-                        />
-                      </div>
-                    )}
-                    {angebote.length > 1 && (
-                      <div className="col-span-3 text-right">
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveAngebot(idx)}
-                          className="text-red-600 text-sm underline"
-                        >
-                          {t("offer.entfernen")}
-                        </button>
-                      </div>
-                    )}
-                  </form>
+
+              <div className="mt-6">
+                <div className="flex items-center mb-2">
+                  <input
+                    type="checkbox"
+                    id="geschwister"
+                    name="geschwister"
+                    checked={geschwister}
+                    onChange={(e) => setGeschwister(e.target.checked)}
+                    className="mr-2"
+                  />
+                  <label
+                    htmlFor="geschwister"
+                    className="font-medium whitespace-normal max-w-[650px]"
+                  >
+                    {t("offer.geschwisterHinweis")}
+                  </label>
                 </div>
-              );
-            })}
-            {angebote.length < maxPakete && (
-              <button
-                type="button"
-                onClick={handleAddAngebot}
-                className="px-4 py-2 bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
-              >
-                {t("offer.hinzufuegen")}
-              </button>
-            )}
+                {geschwister && (
+                  <FloatingInput
+                    label={t("offer.geschwisterName")}
+                    name="geschwisterName"
+                    required
+                    value={geschwisterName}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setGeschwisterName(e.target.value)
+                    }
+                  />
+                )}
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -1082,7 +952,7 @@ function App() {
           }
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
         >
-          {step === 5 ? t("buttons.buchen") : t("buttons.weiter")}
+          {step === 4 ? t("buttons.buchen") : t("buttons.weiter")}
         </button>
       </div>
     </div>
