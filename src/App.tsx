@@ -254,11 +254,13 @@ function App() {
     if (name === "iban") {
       const masked = formatIban(value);
       setSepa((prev) => ({ ...prev, iban: masked }));
-      setIbanError(validateIban(masked));
+      const ibanValidationMsg = validateIban(masked, t);
+      setIbanError(ibanValidationMsg);
 
       // Nur API-Call, wenn IBAN formal gültig ist
       const cleaned = masked.replace(/[^A-Za-z0-9]/g, "");
-      if (/^DE[0-9A-Za-z]{20}$/.test(cleaned)) {
+      if (!ibanValidationMsg) {
+        // Nur wenn validateIban keinen Fehler zurückgibt
         try {
           const response = await fetch(
             `https://openiban.com/validate/${cleaned}?getBank=true&validateBankCode=true&getBIC=true`

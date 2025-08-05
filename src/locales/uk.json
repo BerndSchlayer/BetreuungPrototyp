@@ -56,7 +56,9 @@
     "datenschutz3": "*",
     "kontoinhaber": "Власник рахунку *",
     "iban": "IBAN *",
-    "bank": "Банк"
+    "bank": "Банк",
+    "ibanErrorLength": "Будь ласка, введіть дійсний IBAN (15-34 символи).",
+    "ibanErrorFormat": "Будь ласка, введіть дійсний IBAN (формат: LLkk...)"
   },
   "offer": {
     "angebot": "Пропозиція догляду *",

@@ -56,6 +56,8 @@
     "datenschutz3": "*",
     "kontoinhaber": "Hesap sahibi *",
     "iban": "IBAN *",
+    "ibanErrorLength": "Lütfen geçerli bir IBAN girin (15-34 karakter).",
+    "ibanErrorFormat": "Lütfen geçerli bir IBAN girin (format: LLkk...)",
     "bank": "Banka"
   },
   "offer": {

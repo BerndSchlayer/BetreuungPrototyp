@@ -56,7 +56,9 @@
     "datenschutz3": "*",
     "kontoinhaber": "صاحب الحساب *",
     "iban": "آيبان *",
-    "bank": "البنك"
+    "bank": "البنك",
+    "ibanErrorLength": "يرجى إدخال رقم IBAN صالح (15-34 حرفًا).",
+    "ibanErrorFormat": "يرجى إدخال رقم IBAN صالح (الصيغة: LLkk...)"
   },
   "offer": {
     "angebot": "عرض الرعاية *",

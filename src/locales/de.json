@@ -56,7 +56,9 @@
     "datenschutz3": "*",
     "kontoinhaber": "Kontoinhaber *",
     "iban": "IBAN *",
-    "bank": "Bank"
+    "bank": "Bank",
+    "ibanErrorLength": "Bitte geben Sie eine gültige IBAN ein (15-34 Zeichen).",
+    "ibanErrorFormat": "Bitte geben Sie eine gültige IBAN ein (Format: LLkk...)."
   },
   "offer": {
     "angebot": "Betreuungsangebot *",

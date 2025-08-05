@@ -56,7 +56,9 @@
     "datenschutz3": "*",
     "kontoinhaber": "Владелец счета *",
     "iban": "IBAN *",
-    "bank": "Банк"
+    "bank": "Банк",
+    "ibanErrorLength": "Пожалуйста, введите действительный IBAN (15-34 символа).",
+    "ibanErrorFormat": "Пожалуйста, введите действительный IBAN (формат: LLkk...)"
   },
   "offer": {
     "angebot": "Предложение по уходу *",

@@ -56,7 +56,9 @@
     "datenschutz3": "*",
     "kontoinhaber": "Titular de la cuenta *",
     "iban": "IBAN *",
-    "bank": "Banco"
+    "bank": "Banco",
+    "ibanErrorLength": "Por favor, introduzca un IBAN válido (15-34 caracteres).",
+    "ibanErrorFormat": "Por favor, introduzca un IBAN válido (formato: LLkk...)"
   },
   "offer": {
     "angebot": "Oferta de cuidado *",

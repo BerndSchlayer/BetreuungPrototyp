@@ -56,7 +56,9 @@
     "datenschutz3": "*",
     "kontoinhaber": "Δικαιούχος λογαριασμού *",
     "iban": "IBAN *",
-    "bank": "Τράπεζα"
+    "bank": "Τράπεζα",
+    "ibanErrorLength": "Παρακαλώ εισάγετε ένα έγκυρο IBAN (15-34 χαρακτήρες).",
+    "ibanErrorFormat": "Παρακαλώ εισάγετε ένα έγκυρο IBAN (μορφή: LLkk...)"
   },
   "offer": {
     "angebot": "Προσφορά φροντίδας *",

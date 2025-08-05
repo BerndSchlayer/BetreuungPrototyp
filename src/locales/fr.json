@@ -56,6 +56,8 @@
     "datenschutz3": "*",
     "kontoinhaber": "Titulaire du compte *",
     "iban": "IBAN *",
+    "ibanErrorLength": "Veuillez saisir un IBAN valide (15 à 34 caractères).",
+    "ibanErrorFormat": "Veuillez saisir un IBAN valide (format : LLkk...)",
     "bank": "Banque"
   },
   "offer": {

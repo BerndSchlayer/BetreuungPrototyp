@@ -56,7 +56,9 @@
     "datenschutz3": "*",
     "kontoinhaber": "Account holder *",
     "iban": "IBAN *",
-    "bank": "Bank"
+    "bank": "Bank",
+    "ibanErrorLength": "Please enter a valid IBAN (15-34 characters).",
+    "ibanErrorFormat": "Please enter a valid IBAN (format: LLkk...)"
   },
   "offer": {
     "angebot": "Care offer *",

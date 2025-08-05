@@ -6,10 +6,13 @@ export function formatIban(value: string): string {
   return cleaned.replace(/(.{4})/g, "$1 ").trim();
 }
 
-export function validateIban(iban: string): string {
+export function validateIban(iban: string, t: (key: string) => string): string {
   const cleaned = iban.replace(/[^A-Za-z0-9]/g, "");
-  if (!/^DE[0-9A-Za-z]{20}$/.test(cleaned)) {
-    return "Bitte geben Sie eine gültige deutsche IBAN ein (DE + 20 Zeichen).";
+  if (cleaned.length < 15 || cleaned.length > 34) {
+    return t("sepa.ibanErrorLength");
+  }
+  if (!/^[A-Z]{2}[0-9]{2}[A-Za-z0-9]+$/.test(cleaned)) {
+    return t("sepa.ibanErrorFormat");
   }
   return "";
 }
