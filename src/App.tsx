@@ -120,7 +120,7 @@ function App() {
   // Validierung für Pflichtfelder der ersten Seite
   const [step, setStep] = useState(0);
 
-  const isTestMode = () => true;
+  const isTestMode = () => false;
 
   // Fokus nach Step-Wechsel setzen
   useEffect(() => {

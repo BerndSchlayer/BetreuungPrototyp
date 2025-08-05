@@ -100,8 +100,18 @@
         "angebot": "Spätbetreuung",
         "zeiten": [
           { "tag": "Mittwoch", "uhrzeitVon": "11:45", "uhrzeitBis": "16:30" },
-          { "tag": "Freitag", "uhrzeitVon": "11:50", "uhrzeitBis": "14:00" },
-          { "tag": "Freitag", "uhrzeitVon": "11:50", "uhrzeitBis": "14:00" }
+          {
+            "tag": "Freitag",
+            "uhrzeitVon": "11:50",
+            "uhrzeitBis": "14:00",
+            "option": "Kurz"
+          },
+          {
+            "tag": "Freitag",
+            "uhrzeitVon": "11:50",
+            "uhrzeitBis": "16:00",
+            "option": "Lang"
+          }
         ]
       }
     ]

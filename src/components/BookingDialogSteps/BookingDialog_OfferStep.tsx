@@ -91,74 +91,184 @@ const OfferStep: React.FC<OfferStepProps> = ({
                       "Donnerstag",
                       "Freitag",
                     ].map((tag) => {
-                      const zeit = Array.isArray(angebot.zeiten)
-                        ? angebot.zeiten.find((z: any) => z.tag === tag)
-                        : undefined;
-                      const checked = angebote.some(
-                        (a) =>
-                          a.angebot === angebot.angebot &&
-                          a.ausgewaehlteTage.includes(tag)
-                      );
-                      const abweichend =
-                        zeit &&
-                        (("uhrzeitVon" in zeit &&
-                          zeit.uhrzeitVon !== undefined) ||
-                          ("uhrzeitBis" in zeit &&
-                            zeit.uhrzeitBis !== undefined));
-                      return (
-                        <td
-                          key={tag}
-                          className="border px-2 py-1 text-center relative"
-                        >
-                          {zeit ? (
-                            <span className="inline-flex items-center justify-center w-full h-full">
-                              <input
-                                type="checkbox"
-                                checked={checked}
-                                onChange={(e) => {
-                                  const idx = angebote.findIndex(
-                                    (a) => a.angebot === angebot.angebot
-                                  );
-                                  if (idx === -1) {
-                                    setAngebote((prev) => [
-                                      ...prev,
-                                      {
-                                        angebot: angebot.angebot,
-                                        geschwister: false,
-                                        geschwisterName: "",
-                                        ausgewaehlteTage: [tag],
-                                      },
-                                    ]);
-                                  } else {
-                                    handleTagCheckbox(
-                                      idx,
-                                      tag,
-                                      e.target.checked
+                      // Finde alle Optionen für diesen Tag
+                      const zeiten = Array.isArray(angebot.zeiten)
+                        ? angebot.zeiten.filter((z: any) => z.tag === tag)
+                        : [];
+                      if (zeiten.length > 1) {
+                        // Checkboxen für jede Option, aber nur eine darf aktiv sein
+                        const selected = angebote
+                          .find((a) => a.angebot === angebot.angebot)
+                          ?.ausgewaehlteTage.find((t) => t.startsWith(tag));
+                        return (
+                          <td
+                            key={tag}
+                            className="border px-2 py-1 text-center align-top"
+                          >
+                            <div className="flex flex-col items-center">
+                              {zeiten.map((zeit: any, idx: number) => {
+                                // Uhrzeiten anzeigen, falls vorhanden
+                                const hasUhrzeiten =
+                                  zeit.uhrzeitVon || zeit.uhrzeitBis;
+                                const optionLabel = hasUhrzeiten
+                                  ? `${zeit.uhrzeitVon ?? ""}${
+                                      zeit.uhrzeitVon && zeit.uhrzeitBis
+                                        ? "–"
+                                        : ""
+                                    }${zeit.uhrzeitBis ?? ""}`
+                                  : zeit.option || `${tag}`;
+                                const optionValue = `${tag}:${optionLabel}`;
+                                const checked = selected === optionValue;
+                                return (
+                                  <label
+                                    key={idx}
+                                    className="flex items-center mb-1 text-xs"
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      checked={checked}
+                                      onChange={(e) => {
+                                        const idxAngebot = angebote.findIndex(
+                                          (a) => a.angebot === angebot.angebot
+                                        );
+                                        if (e.target.checked) {
+                                          // Nur diese Option aktivieren
+                                          if (idxAngebot === -1) {
+                                            setAngebote((prev) => [
+                                              ...prev,
+                                              {
+                                                angebot: angebot.angebot,
+                                                geschwister: false,
+                                                geschwisterName: "",
+                                                ausgewaehlteTage: [optionValue],
+                                              },
+                                            ]);
+                                          } else {
+                                            setAngebote((prev) =>
+                                              prev.map((a, i) =>
+                                                i === idxAngebot
+                                                  ? {
+                                                      ...a,
+                                                      ausgewaehlteTage: [
+                                                        ...a.ausgewaehlteTage.filter(
+                                                          (t) =>
+                                                            !t.startsWith(tag)
+                                                        ),
+                                                        optionValue,
+                                                      ],
+                                                    }
+                                                  : a
+                                              )
+                                            );
+                                          }
+                                        } else {
+                                          // Option abwählen
+                                          if (idxAngebot !== -1) {
+                                            setAngebote((prev) =>
+                                              prev.map((a, i) =>
+                                                i === idxAngebot
+                                                  ? {
+                                                      ...a,
+                                                      ausgewaehlteTage:
+                                                        a.ausgewaehlteTage.filter(
+                                                          (t) =>
+                                                            t !== optionValue
+                                                        ),
+                                                    }
+                                                  : a
+                                              )
+                                            );
+                                          }
+                                        }
+                                      }}
+                                      className="mr-1"
+                                    />
+                                    {optionLabel}
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          </td>
+                        );
+                      } else if (zeiten.length === 1) {
+                        // Checkbox für einzelne Option
+                        const zeit = zeiten[0];
+                        const checked = angebote.some(
+                          (a) =>
+                            a.angebot === angebot.angebot &&
+                            a.ausgewaehlteTage.includes(tag)
+                        );
+                        const abweichend =
+                          zeit &&
+                          (("uhrzeitVon" in zeit &&
+                            zeit.uhrzeitVon !== undefined) ||
+                            ("uhrzeitBis" in zeit &&
+                              zeit.uhrzeitBis !== undefined));
+                        return (
+                          <td
+                            key={tag}
+                            className="border px-2 py-1 text-center relative"
+                          >
+                            {zeit ? (
+                              <span className="inline-flex items-center justify-center w-full h-full">
+                                <input
+                                  type="checkbox"
+                                  checked={checked}
+                                  onChange={(e) => {
+                                    const idx = angebote.findIndex(
+                                      (a) => a.angebot === angebot.angebot
                                     );
-                                  }
-                                }}
-                              />
-                            </span>
-                          ) : null}
-                          {abweichend && (
-                            <span className="absolute top-2 right-1 group">
-                              <Info className="w-4 h-4" stroke="#2563eb" />
-                              <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max px-2 py-1 bg-gray-800 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none z-50 whitespace-nowrap">
-                                {`${
-                                  zeit.uhrzeitVon ?? angebot.uhrzeitVon ?? ""
-                                }${
-                                  (zeit.uhrzeitVon ?? angebot.uhrzeitVon) &&
-                                  (zeit.uhrzeitBis ?? angebot.uhrzeitBis)
-                                    ? "–"
-                                    : ""
-                                }${
-                                  zeit.uhrzeitBis ?? angebot.uhrzeitBis ?? ""
-                                }`}
-                              </div>
-                            </span>
-                          )}
-                        </td>
-                      );
+                                    if (idx === -1) {
+                                      setAngebote((prev) => [
+                                        ...prev,
+                                        {
+                                          angebot: angebot.angebot,
+                                          geschwister: false,
+                                          geschwisterName: "",
+                                          ausgewaehlteTage: [tag],
+                                        },
+                                      ]);
+                                    } else {
+                                      handleTagCheckbox(
+                                        idx,
+                                        tag,
+                                        e.target.checked
+                                      );
+                                    }
+                                  }}
+                                />
+                              </span>
+                            ) : null}
+                            {abweichend && (
+                              <span className="absolute top-1/2 -translate-y-1/2 right-1 group">
+                                <Info className="w-4 h-4" stroke="#2563eb" />
+                                <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max px-2 py-1 bg-gray-800 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none z-50 whitespace-nowrap">
+                                  {`${
+                                    zeit.uhrzeitVon ?? angebot.uhrzeitVon ?? ""
+                                  }${
+                                    (zeit.uhrzeitVon ?? angebot.uhrzeitVon) &&
+                                    (zeit.uhrzeitBis ?? angebot.uhrzeitBis)
+                                      ? "–"
+                                      : ""
+                                  }${
+                                    zeit.uhrzeitBis ?? angebot.uhrzeitBis ?? ""
+                                  }`}
+                                </div>
+                              </span>
+                            )}
+                          </td>
+                        );
+                      } else {
+                        // Kein Angebot für diesen Tag
+                        return (
+                          <td
+                            key={tag}
+                            className="border px-2 py-1 text-center"
+                          >
+                            –
+                          </td>
+                        );
+                      }
                     })}
                   </tr>
                 ))}
