@@ -64,7 +64,9 @@
     "geschwisterHinweis": "Bir kardeş zaten bu teklife katılıyor veya ayrıca kaydedildi",
     "geschwisterName": "Kardeşin adı *",
     "entfernen": "Kaldır",
-    "hinzufuegen": "Bakım paketi ekle"
+    "hinzufuegen": "Bakım paketi ekle",
+    "selectInstruction": "Lütfen aşağıda rezerve etmek istediğiniz bakım tekliflerini seçin.",
+    "uhrzeiten": "Saatler"
   },
   "buttons": {
     "zurueck": "Geri",

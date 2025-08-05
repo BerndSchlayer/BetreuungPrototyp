@@ -64,7 +64,9 @@
     "geschwisterHinweis": "Un fratello frequenta già questa offerta o è stato anch'esso registrato",
     "geschwisterName": "Nome del fratello *",
     "entfernen": "Rimuovi",
-    "hinzufuegen": "Aggiungi pacchetto di assistenza"
+    "hinzufuegen": "Aggiungi pacchetto di assistenza",
+    "selectInstruction": "Seleziona qui sotto le offerte di assistenza che desideri prenotare.",
+    "uhrzeiten": "Orari"
   },
   "buttons": {
     "zurueck": "Indietro",

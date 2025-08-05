@@ -64,7 +64,9 @@
     "geschwisterHinweis": "Ein Geschwisterkind besucht bereits dieses Angebot bzw. wurde ebenfalls angemeldet",
     "geschwisterName": "Name des Geschwisterkinds *",
     "entfernen": "Entfernen",
-    "hinzufuegen": "Betreuungspaket hinzufügen"
+    "hinzufuegen": "Betreuungspaket hinzufügen",
+    "selectInstruction": "Bitte wählen Sie unten die Betreuungsangebote aus, die Sie buchen möchten.",
+    "uhrzeiten": "Uhrzeiten"
   },
   "buttons": {
     "zurueck": "Zurück",

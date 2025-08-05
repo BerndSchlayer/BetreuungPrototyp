@@ -1,4 +1,3 @@
-
 [
   {
     "schule": "Durlesbachschule",
@@ -6,31 +5,37 @@
     "angebote": [
       {
         "angebot": "Frühbetreuung",
+        "uhrzeitVon": "07:15",
+        "uhrzeitBis": "08:20",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Dienstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Donnerstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Freitag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" }
+          { "tag": "Montag" },
+          { "tag": "Dienstag" },
+          { "tag": "Mittwoch" },
+          { "tag": "Donnerstag" },
+          { "tag": "Freitag" }
         ]
       },
       {
         "angebot": "Spätbetreuung",
+        "uhrzeitVon": "11:50",
+        "uhrzeitBis": "13:00",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
-          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
-          { "tag": "Donnerstag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
-          { "tag": "Freitag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" }
+          { "tag": "Montag" },
+          { "tag": "Dienstag" },
+          { "tag": "Mittwoch" },
+          { "tag": "Donnerstag" },
+          { "tag": "Freitag" }
         ]
       },
       {
         "angebot": "Verlängert",
+        "uhrzeitVon": "13:00",
+        "uhrzeitBis": "15:30",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "13:00", "uhrzeitBis": "15:30" },
-          { "tag": "Dienstag", "uhrzeitVon": "13:00", "uhrzeitBis": "14:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "13:00", "uhrzeitBis": "15:30" },
-          { "tag": "Donnerstag", "uhrzeitVon": "13:00", "uhrzeitBis": "15:30" }
+          { "tag": "Montag" },
+          { "tag": "Dienstag", "uhrzeitVon": "11:50", "uhrzeitBis": "14:00" },
+          { "tag": "Mittwoch" },
+          { "tag": "Donnerstag" }
         ]
       }
     ]
@@ -41,36 +46,37 @@
     "angebote": [
       {
         "angebot": "Frühbetreuung",
+        "uhrzeitVon": "07:00",
+        "uhrzeitBis": "08:00",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Dienstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Donnerstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Freitag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" }
+          { "tag": "Montag" },
+          { "tag": "Dienstag" },
+          { "tag": "Mittwoch" },
+          { "tag": "Donnerstag" },
+          { "tag": "Freitag" }
         ]
       },
       {
         "angebot": "Spätbetreuung",
+        "uhrzeitVon": "12:00",
+        "uhrzeitBis": "14:00",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Donnerstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Freitag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" }
+          { "tag": "Montag" },
+          { "tag": "Dienstag" },
+          { "tag": "Mittwoch" },
+          { "tag": "Donnerstag" },
+          { "tag": "Freitag" }
         ]
       },
       {
         "angebot": "Verlängert",
-        "zeiten": [
-          { "tag": "Mittwoch", "uhrzeitVon": "14:00", "uhrzeitBis": "15:30" }
-        ]
+        "uhrzeitVon": "14:00",
+        "uhrzeitBis": "15:30",
+        "zeiten": [{ "tag": "Mittwoch" }]
       },
       {
         "angebot": "Mittagessen",
-        "zeiten": [
-          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "13:00" }
-        ]
+        "zeiten": [{ "tag": "Dienstag" }, { "tag": "Mittwoch" }]
       }
     ]
   },
@@ -80,22 +86,22 @@
     "angebote": [
       {
         "angebot": "Frühbetreuung",
+        "uhrzeitVon": "07:00",
+        "uhrzeitBis": "08:15",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Dienstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Donnerstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Freitag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" }
+          { "tag": "Montag" },
+          { "tag": "Dienstag" },
+          { "tag": "Mittwoch" },
+          { "tag": "Donnerstag" },
+          { "tag": "Freitag" }
         ]
       },
       {
         "angebot": "Spätbetreuung",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Donnerstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Freitag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" }
+          { "tag": "Mittwoch", "uhrzeitVon": "11:45", "uhrzeitBis": "16:30" },
+          { "tag": "Freitag", "uhrzeitVon": "11:50", "uhrzeitBis": "14:00" },
+          { "tag": "Freitag", "uhrzeitVon": "11:50", "uhrzeitBis": "14:00" }
         ]
       }
     ]
@@ -106,25 +112,28 @@
     "angebote": [
       {
         "angebot": "Frühbetreuung",
+        "uhrzeitVon": "07:00",
+        "uhrzeitBis": "08:00",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Dienstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Donnerstag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" },
-          { "tag": "Freitag", "uhrzeitVon": "07:00", "uhrzeitBis": "08:00" }
+          { "tag": "Montag" },
+          { "tag": "Dienstag" },
+          { "tag": "Mittwoch" },
+          { "tag": "Donnerstag" },
+          { "tag": "Freitag" }
         ]
       },
       {
         "angebot": "Spätbetreuung",
+        "uhrzeitVon": "12:00",
+        "uhrzeitBis": "14:00",
         "zeiten": [
-          { "tag": "Montag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Dienstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Mittwoch", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Donnerstag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" },
-          { "tag": "Freitag", "uhrzeitVon": "12:00", "uhrzeitBis": "14:00" }
+          { "tag": "Montag" },
+          { "tag": "Dienstag" },
+          { "tag": "Mittwoch" },
+          { "tag": "Donnerstag" },
+          { "tag": "Freitag" }
         ]
       }
     ]
   }
-
 ]

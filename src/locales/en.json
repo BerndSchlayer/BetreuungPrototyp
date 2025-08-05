@@ -64,7 +64,9 @@
     "geschwisterHinweis": "A sibling already attends this offer or has also been registered",
     "geschwisterName": "Name of sibling *",
     "entfernen": "Remove",
-    "hinzufuegen": "Add care package"
+    "hinzufuegen": "Add care package",
+    "selectInstruction": "Please select below the care offers you wish to book.",
+    "uhrzeiten": "Times"
   },
   "buttons": {
     "zurueck": "Back",

@@ -64,7 +64,9 @@
     "geschwisterHinweis": "Un hermano ya asiste a esta oferta o también ha sido registrado",
     "geschwisterName": "Nombre del hermano *",
     "entfernen": "Eliminar",
-    "hinzufuegen": "Añadir paquete de cuidado"
+    "hinzufuegen": "Añadir paquete de cuidado",
+    "selectInstruction": "Por favor, seleccione abajo las ofertas de cuidado que desea reservar.",
+    "uhrzeiten": "Horarios"
   },
   "buttons": {
     "zurueck": "Atrás",

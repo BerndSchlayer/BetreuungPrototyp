@@ -64,7 +64,9 @@
     "geschwisterHinweis": "Un frère ou une sœur fréquente déjà cette offre ou a également été inscrit(e)",
     "geschwisterName": "Nom du frère ou de la sœur *",
     "entfernen": "Supprimer",
-    "hinzufuegen": "Ajouter un forfait de garde"
+    "hinzufuegen": "Ajouter un forfait de garde",
+    "selectInstruction": "Veuillez sélectionner ci-dessous les offres de garde que vous souhaitez réserver.",
+    "uhrzeiten": "Horaires"
   },
   "buttons": {
     "zurueck": "Retour",

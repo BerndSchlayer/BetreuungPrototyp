@@ -64,7 +64,9 @@
     "geschwisterHinweis": "طفل شقيق يحضر هذا العرض بالفعل أو تم تسجيله أيضًا",
     "geschwisterName": "اسم الطفل الشقيق *",
     "entfernen": "إزالة",
-    "hinzufuegen": "إضافة حزمة الرعاية"
+    "hinzufuegen": "إضافة حزمة الرعاية",
+    "selectInstruction": "يرجى اختيار عروض الرعاية التي ترغب في حجزها أدناه.",
+    "uhrzeiten": "الأوقات"
   },
   "buttons": {
     "zurueck": "عودة",

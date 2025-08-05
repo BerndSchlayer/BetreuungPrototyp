@@ -1,4 +1,5 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
+import { Info } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 import FloatingInput from "./components/FloatingInput";
@@ -10,8 +11,6 @@ import LanguageSwitcher from "./components/LanguageSwitcher";
 
 import angeboteMatrix from "./utils/angeboteMatrix.json";
 
-import { useState } from "react";
-
 // Typ für ein Betreuungspaket
 type AngebotState = {
   angebot: string;
@@ -21,6 +20,87 @@ type AngebotState = {
 };
 
 function App() {
+  // State für Kind-Seite
+  const [child, setChild] = useState({
+    vorname: "",
+    nachname: "",
+    geburtsdatum: "",
+    geschlecht: "",
+    schule: "",
+    klasse: "",
+  });
+
+  // Validierung für Pflichtfelder der Kind-Seite
+  const allChildRequiredFilled =
+    child.vorname.trim() &&
+    child.nachname.trim() &&
+    child.geburtsdatum.trim() &&
+    child.geschlecht.trim() &&
+    child.schule.trim() &&
+    child.klasse.trim();
+
+  const handleChildDateChange = (value: string | null) => {
+    setChild((prev) => ({ ...prev, geburtsdatum: value ?? "" }));
+  };
+
+  // State für Betreuungsangebot-Seite
+  const [angebote, setAngebote] = useState<AngebotState[]>([
+    {
+      angebot: "",
+      geschwister: false,
+      geschwisterName: "",
+      ausgewaehlteTage: [],
+    },
+  ]);
+
+  // Validierung für Betreuungsangebot-Seite
+  const allAngeboteValid = angebote.every(
+    (a: AngebotState) =>
+      a.angebot && (!a.geschwister || a.geschwisterName.trim())
+  );
+
+  // Handler für Betreuungsangebot-Felder
+  const handleAngebotChange = (idx: number, field: string, value: string) => {
+    setAngebote((prev: AngebotState[]) =>
+      prev.map((a, i) => (i === idx ? { ...a, [field]: value } : a))
+    );
+  };
+
+  // Handler für die Auswahl der Tage (Checkboxen)
+  const handleTagCheckbox = (idx: number, tag: string, checked: boolean) => {
+    setAngebote((prev: AngebotState[]) =>
+      prev.map((a, i) => {
+        if (i === idx) {
+          const aktuelleTage = Array.isArray(a.ausgewaehlteTage)
+            ? a.ausgewaehlteTage
+            : [];
+          let neueTage: string[];
+          if (checked) {
+            neueTage = [...aktuelleTage, tag];
+          } else {
+            neueTage = aktuelleTage.filter((t: string) => t !== tag);
+          }
+          return { ...a, ausgewaehlteTage: neueTage };
+        }
+        return a;
+      })
+    );
+  };
+
+  const handleGeschwisterCheckbox = (idx: number, checked: boolean) => {
+    setAngebote((prev: AngebotState[]) =>
+      prev.map((a, i) =>
+        i === idx
+          ? {
+              ...a,
+              geschwister: checked,
+              geschwisterName: checked ? a.geschwisterName : "",
+            }
+          : a
+      )
+    );
+  };
+
   const { t } = useTranslation();
   // Refs für die ersten Felder jeder Seite
   const refPersonVorname = useRef<HTMLInputElement>(null);
@@ -31,6 +111,8 @@ function App() {
 
   // Validierung für Pflichtfelder der ersten Seite
   const [step, setStep] = useState(0);
+
+  const isTestMode = () => true;
 
   // Fokus nach Step-Wechsel setzen
   useEffect(() => {
@@ -46,91 +128,16 @@ function App() {
       refAngebotSelect.current.focus();
     }
   }, [step]);
+  // ...
 
-  const handleChildDateChange = (value: string | null) => {
-    setChild((prev) => ({ ...prev, geburtsdatum: value ?? "" }));
-  };
-  // State für Kind-Seite
-  const [child, setChild] = useState({
-    vorname: "",
-    nachname: "",
-    geburtsdatum: "",
-    geschlecht: "",
-    schule: "",
-    klasse: "",
-  });
-
-  // Validierung für Pflichtfelder der zweiten Seite
-  // Pflichtfeld-Prüfung für die Kind-Seite ist für den Prototyp-Test auskommentiert
-  const allChildRequiredFilled =
-    child.vorname.trim() &&
-    child.nachname.trim() &&
-    child.geburtsdatum.trim() &&
-    child.geschlecht.trim() &&
-    child.schule.trim() &&
-    child.klasse.trim();
-
-  // State für Betreuungsangebot-Seite
-  const [angebote, setAngebote] = useState<AngebotState[]>([
-    {
-      angebot: "",
-      geschwister: false,
-      geschwisterName: "",
-      ausgewaehlteTage: [],
-    },
-  ]);
-
-  // Validierung für Betreuungsangebot-Seite
-  const allAngeboteValid = angebote.every(
-    (a) => a.angebot && (!a.geschwister || a.geschwisterName.trim())
-  );
-
-  // Handler für Betreuungsangebot-Felder
-  const handleAngebotChange = (idx: number, field: string, value: string) => {
-    setAngebote((prev) =>
-      prev.map((a, i) => (i === idx ? { ...a, [field]: value } : a))
-    );
-  };
-
-  // Handler für die Auswahl der Tage (Checkboxen)
-  const handleTagCheckbox = (idx: number, tag: string, checked: boolean) => {
-    setAngebote((prev) =>
-      prev.map((a, i) => {
-        if (i !== idx) return a;
-        const aktuelleTage = Array.isArray(a.ausgewaehlteTage)
-          ? a.ausgewaehlteTage
-          : [];
-        let neueTage;
-        if (checked) {
-          neueTage = [...aktuelleTage, tag];
-        } else {
-          neueTage = aktuelleTage.filter((t) => t !== tag);
-        }
-        return { ...a, ausgewaehlteTage: neueTage };
-      })
-    );
-  };
-  const handleGeschwisterCheckbox = (idx: number, checked: boolean) => {
-    setAngebote((prev) =>
-      prev.map((a, i) =>
-        i === idx
-          ? {
-              ...a,
-              geschwister: checked,
-              geschwisterName: checked ? a.geschwisterName : "",
-            }
-          : a
-      )
-    );
-  };
   // Dynamische maximale Anzahl Betreuungspakete je nach Schule
   const maxPakete = (() => {
-    const schuleObj = Array.isArray(angeboteMatrix)
-      ? angeboteMatrix.find((s) => s.schule === child.schule)
-      : undefined;
-    return schuleObj && Array.isArray(schuleObj.angebote)
-      ? schuleObj.angebote.length
-      : 1;
+    let maxPakete = 1;
+    if (Array.isArray(angeboteMatrix)) {
+      const found = angeboteMatrix.find((s: any) => s.schule === child.schule);
+      maxPakete = found?.angebote?.length ?? 1;
+    }
+    return maxPakete;
   })();
 
   const handleAddAngebot = () => {
@@ -312,9 +319,9 @@ function App() {
     }
   };
 
-  // Step-Logik für 4 Seiten
+  // Step-Logik für 5 Seiten (statt 4)
   const handleNext = () => {
-    if (step < 4) setStep(step + 1);
+    if (step < 5) setStep(step + 1);
   };
   const handlePrev = () => {
     if (step > 0) setStep(step - 1);
@@ -328,32 +335,37 @@ function App() {
       </div>
       <h1 className="text-2xl font-bold mb-6 text-left">{t("title")}</h1>
       <div className="flex mb-4 overflow-x-auto flex-nowrap gap-2">
-        {["personTab", "childTab", "notesTab", "sepaTab", "offerTab"].map(
-          (key, i) => (
-            <div
-              key={i}
-              className={`flex flex-col items-center min-w-[48px] px-2 py-1 select-none ${
-                step === i
-                  ? "border-b-2 border-blue-600 font-bold text-blue-600"
-                  : "border-b-2 border-gray-300 text-gray-500"
+        {[
+          "personTab",
+          "childTab",
+          "notesTab",
+          "sepaTab",
+          "offerTab",
+          "reviewTab",
+        ].map((key, i) => (
+          <div
+            key={i}
+            className={`flex flex-col items-center min-w-[48px] px-2 py-1 select-none ${
+              step === i
+                ? "border-b-2 border-blue-600 font-bold text-blue-600"
+                : "border-b-2 border-gray-300 text-gray-500"
+            }`}
+          >
+            <span
+              className={`inline-block w-7 h-7 rounded-full text-white font-bold flex items-center justify-center mb-1 ${
+                step === i ? "bg-blue-600" : "bg-gray-300"
               }`}
+              title={t(key)}
             >
-              <span
-                className={`inline-block w-7 h-7 rounded-full text-white font-bold flex items-center justify-center mb-1 ${
-                  step === i ? "bg-blue-600" : "bg-gray-300"
-                }`}
-                title={t(key)}
-              >
-                {i + 1}
+              {i + 1}
+            </span>
+            {step === i && (
+              <span className="text-xs text-center whitespace-nowrap">
+                {t(key)}
               </span>
-              {step === i && (
-                <span className="text-xs text-center whitespace-nowrap">
-                  {t(key)}
-                </span>
-              )}
-            </div>
-          )
-        )}
+            )}
+          </div>
+        ))}
       </div>
       <div className="min-h-[120px] mb-8">
         {step === 0 && (
@@ -480,7 +492,10 @@ function App() {
                 name="geschlecht"
                 required
                 options={[
-                  { label: t("child.geschlechtMaennlich"), value: "männlich" },
+                  {
+                    label: t("child.geschlechtMaennlich"),
+                    value: "männlich",
+                  },
                   { label: t("child.geschlechtWeiblich"), value: "weiblich" },
                   { label: t("child.geschlechtDivers"), value: "divers" },
                   {
@@ -524,15 +539,14 @@ function App() {
                 name="klasse"
                 required
                 options={(() => {
-                  const schuleObj = Array.isArray(angeboteMatrix)
-                    ? angeboteMatrix.find((s) => s.schule === child.schule)
-                    : undefined;
-                  return schuleObj && Array.isArray(schuleObj.klassen)
-                    ? schuleObj.klassen.map((k: string) => ({
-                        label: k,
-                        value: k,
-                      }))
-                    : [];
+                  let klassen: string[] = [];
+                  if (Array.isArray(angeboteMatrix)) {
+                    const found = angeboteMatrix.find(
+                      (s: any) => s.schule === child.schule
+                    );
+                    klassen = found?.klassen ?? [];
+                  }
+                  return klassen.map((k: string) => ({ label: k, value: k }));
                 })()}
                 value={child.klasse}
                 onChange={(value) =>
@@ -741,6 +755,151 @@ function App() {
         )}
         {step === 4 && (
           <div>
+            <label className="block font-medium mb-2 text-gray-700">
+              {t("offer.selectInstruction")}
+            </label>
+            {/* Matrix-Darstellung: Wochentage horizontal, Angebote vertikal */}
+            <div className="overflow-x-auto">
+              <table className="min-w-full border border-gray-300">
+                <thead>
+                  <tr>
+                    <th className="border px-1 py-1 bg-gray-100 w-32 text-left whitespace-nowrap"></th>
+                    <th className="border px-2 py-1 bg-gray-100 w-10 text-right whitespace-nowrap">
+                      {t("offer.uhrzeiten")}
+                    </th>
+                    {[
+                      "Montag",
+                      "Dienstag",
+                      "Mittwoch",
+                      "Donnerstag",
+                      "Freitag",
+                    ].map((tag) => (
+                      <th
+                        key={tag}
+                        className="border px-2 py-1 bg-gray-100 text-center"
+                      >
+                        {t(`weekdays.${tag}`)}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Zeilen: Betreuungsangebote */}
+                  {(() => {
+                    let angeboteList: any[] = [];
+                    if (Array.isArray(angeboteMatrix)) {
+                      const found = angeboteMatrix.find(
+                        (s: any) => s.schule === child.schule
+                      );
+                      angeboteList = found?.angebote ?? [];
+                    }
+                    if (angeboteList.length === 0) return null;
+                    return angeboteList.map((angebot: any) => (
+                      <tr key={angebot.angebot}>
+                        <td className="border px-1 py-1 font-medium w-32 text-left whitespace-nowrap">
+                          {angebot.angebot}
+                        </td>
+                        <td className="border px-1 py-1 font-medium w-10 text-left whitespace-nowrap">
+                          {angebot.uhrzeitVon && angebot.uhrzeitBis && (
+                            <span className="ml-2 text-xs text-gray-500">
+                              {angebot.uhrzeitVon}
+                              {angebot.uhrzeitVon && angebot.uhrzeitBis
+                                ? " – "
+                                : ""}
+                              {angebot.uhrzeitBis}
+                            </span>
+                          )}
+                        </td>
+                        {[
+                          "Montag",
+                          "Dienstag",
+                          "Mittwoch",
+                          "Donnerstag",
+                          "Freitag",
+                        ].map((tag) => {
+                          const zeit = Array.isArray(angebot.zeiten)
+                            ? angebot.zeiten.find((z: any) => z.tag === tag)
+                            : undefined;
+                          const checked = angebote.some(
+                            (a) =>
+                              a.angebot === angebot.angebot &&
+                              a.ausgewaehlteTage.includes(tag)
+                          );
+                          const abweichend =
+                            zeit &&
+                            (("uhrzeitVon" in zeit &&
+                              zeit.uhrzeitVon !== undefined) ||
+                              ("uhrzeitBis" in zeit &&
+                                zeit.uhrzeitBis !== undefined));
+                          return (
+                            <td
+                              key={tag}
+                              className="border px-2 py-1 text-center relative"
+                            >
+                              {zeit ? (
+                                <span className="inline-flex items-center justify-center w-full h-full">
+                                  <input
+                                    type="checkbox"
+                                    checked={checked}
+                                    onChange={(e) => {
+                                      const idx = angebote.findIndex(
+                                        (a) => a.angebot === angebot.angebot
+                                      );
+                                      if (idx === -1) {
+                                        setAngebote((prev) => [
+                                          ...prev,
+                                          {
+                                            angebot: angebot.angebot,
+                                            geschwister: false,
+                                            geschwisterName: "",
+                                            ausgewaehlteTage: [tag],
+                                          },
+                                        ]);
+                                      } else {
+                                        handleTagCheckbox(
+                                          idx,
+                                          tag,
+                                          e.target.checked
+                                        );
+                                      }
+                                    }}
+                                  />
+                                </span>
+                              ) : null}
+                              {abweichend && (
+                                <span className="absolute top-2 right-1 group">
+                                  <Info className="w-4 h-4" stroke="#2563eb" />
+                                  <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max px-2 py-1 bg-gray-800 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none z-50 whitespace-nowrap">
+                                    {`${
+                                      zeit.uhrzeitVon ??
+                                      angebot.uhrzeitVon ??
+                                      ""
+                                    }${
+                                      (zeit.uhrzeitVon ?? angebot.uhrzeitVon) &&
+                                      (zeit.uhrzeitBis ?? angebot.uhrzeitBis)
+                                        ? "–"
+                                        : ""
+                                    }${
+                                      zeit.uhrzeitBis ??
+                                      angebot.uhrzeitBis ??
+                                      ""
+                                    }`}
+                                  </div>
+                                </span>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ));
+                  })()}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+        {step === 5 && (
+          <div>
             {angebote.map((a, idx) => {
               // Dynamische Optionen je nach gewählter Schule
               const schuleObj = Array.isArray(angeboteMatrix)
@@ -816,11 +975,15 @@ function App() {
                               />
                               <span>
                                 {t(`weekdays.${z.tag}`) || z.tag}
-                                {z.uhrzeitVon || z.uhrzeitBis ? (
+                                {typeof (z as any)?.uhrzeitVon === "string" ||
+                                typeof (z as any)?.uhrzeitBis === "string" ? (
                                   <span className="ml-1 text-xs text-gray-500">
-                                    ({z.uhrzeitVon}
-                                    {z.uhrzeitVon && z.uhrzeitBis ? "–" : ""}
-                                    {z.uhrzeitBis})
+                                    ({(z as any)?.uhrzeitVon ?? ""}
+                                    {(z as any)?.uhrzeitVon &&
+                                    (z as any)?.uhrzeitBis
+                                      ? "–"
+                                      : ""}
+                                    {(z as any)?.uhrzeitBis ?? ""})
                                   </span>
                                 ) : null}
                               </span>
@@ -905,7 +1068,9 @@ function App() {
         <button
           onClick={handleNext}
           disabled={
-            step === 0
+            isTestMode()
+              ? false
+              : step === 0
               ? !allRequiredFilled
               : step === 1
               ? !allChildRequiredFilled
@@ -917,7 +1082,7 @@ function App() {
           }
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
         >
-          {step === 4 ? t("buttons.buchen") : t("buttons.weiter")}
+          {step === 5 ? t("buttons.buchen") : t("buttons.weiter")}
         </button>
       </div>
     </div>
