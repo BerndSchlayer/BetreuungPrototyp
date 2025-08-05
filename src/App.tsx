@@ -10,6 +10,14 @@ import TagInput from "./components/TagInput";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 
 import angeboteMatrix from "./utils/angeboteMatrix.json";
+import PersonStep from "./components/BookingDialogSteps/BookingDialag_PersonStep";
+import ChildStep from "./components/BookingDialogSteps/BookingDialog_ChildStep";
+import NotesStep from "./components/BookingDialogSteps/BookingDialog_NotesStep";
+import SEPAStep, {
+  formatIban,
+  validateIban,
+} from "./components/BookingDialogSteps/BookingDialog_SEPAStep";
+import OfferStep from "./components/BookingDialogSteps/BookingDialog_OfferStep";
 
 // Typ für ein Betreuungspaket
 type AngebotState = {
@@ -112,7 +120,7 @@ function App() {
   // Validierung für Pflichtfelder der ersten Seite
   const [step, setStep] = useState(0);
 
-  const isTestMode = () => false;
+  const isTestMode = () => true;
 
   // Fokus nach Step-Wechsel setzen
   useEffect(() => {
@@ -128,33 +136,6 @@ function App() {
       refAngebotSelect.current.focus();
     }
   }, [step]);
-  // ...
-
-  // Dynamische maximale Anzahl Betreuungspakete je nach Schule
-  const maxPakete = (() => {
-    let maxPakete = 1;
-    if (Array.isArray(angeboteMatrix)) {
-      const found = angeboteMatrix.find((s: any) => s.schule === child.schule);
-      maxPakete = found?.angebote?.length ?? 1;
-    }
-    return maxPakete;
-  })();
-
-  const handleAddAngebot = () => {
-    if (angebote.length < maxPakete)
-      setAngebote([
-        ...angebote,
-        {
-          angebot: "",
-          geschwister: false,
-          geschwisterName: "",
-          ausgewaehlteTage: [],
-        },
-      ]);
-  };
-  const handleRemoveAngebot = (idx: number) => {
-    setAngebote((prev) => prev.filter((_, i) => i !== idx));
-  };
 
   const handleChildInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -187,7 +168,10 @@ function App() {
     (!hinweise.nimmtMedikamente || hinweise.medikamente.trim()) &&
     (!hinweise.hatUnvertraeglichkeiten || hinweise.unvertraeglichkeiten.trim());
 
-  const handleHinweiseSelectChange = (value: string) => {
+  const handleHinweiseSelectChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const value = e.target.value;
     setHinweise((prev) => ({
       ...prev,
       betreuungsart: value,
@@ -197,7 +181,8 @@ function App() {
   const handleHinweiseInputChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const { name, value, type, checked } = e.target;
+    const { name, type, value, checked } = e.target;
+    // Für Checkboxen checked verwenden, sonst value
     setHinweise((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
@@ -262,23 +247,6 @@ function App() {
     setSepa((prev) => ({ ...prev, [name]: checked }));
   };
 
-  // IBAN Maskierung und Validierung
-  const formatIban = (value: string) => {
-    // Entferne alle Nicht-Buchstaben/Zahlen und wandle alles in Großbuchstaben um
-    let cleaned = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase();
-    // In 4er-Gruppen formatieren
-    return cleaned.replace(/(.{4})/g, "$1 ").trim();
-  };
-
-  const validateIban = (iban: string) => {
-    // IBAN muss 22 Zeichen (DE) haben, nur Buchstaben/Zahlen
-    const cleaned = iban.replace(/[^A-Za-z0-9]/g, "");
-    if (!/^DE[0-9A-Za-z]{20}$/.test(cleaned)) {
-      return "Bitte geben Sie eine gültige deutsche IBAN ein (DE + 20 Zeichen).";
-    }
-    return "";
-  };
-
   const handleSepaInputChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -321,7 +289,7 @@ function App() {
 
   // Step-Logik für 5 Seiten (statt 4)
   const handleNext = () => {
-    if (step < 5) setStep(step + 1);
+    if (step < 4) setStep(step + 1); // Schritt maximal bis 4
   };
   const handlePrev = () => {
     if (step > 0) setStep(step - 1);
@@ -367,565 +335,57 @@ function App() {
       </div>
       <div className="min-h-[120px] mb-8">
         {step === 0 && (
-          <form className="grid grid-cols-3 gap-x-4 gap-y-2">
-            <div className="col-span-1">
-              <FloatingSelect
-                label={t("person.anrede")}
-                name="anrede"
-                required
-                options={[
-                  { label: t("person.salutationHerr"), value: "Herr" },
-                  { label: t("person.salutationFrau"), value: "Frau" },
-                  { label: t("person.salutationDivers"), value: "Divers" },
-                ]}
-                value={person.anrede}
-                onChange={(value) =>
-                  handlePersonSelectChange({
-                    target: { name: "anrede", value },
-                  } as React.ChangeEvent<HTMLSelectElement>)
-                }
-              />
-            </div>
-            <div className="col-span-2"></div>
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("person.vorname")}
-                name="vorname"
-                required
-                value={person.vorname}
-                onChange={handlePersonInputChange}
-                ref={refPersonVorname}
-              />
-            </div>
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("person.nachname")}
-                name="nachname"
-                required
-                value={person.nachname}
-                onChange={handlePersonInputChange}
-              />
-            </div>
-            <div className="col-span-1">
-              <FloatingInput
-                label={t("person.plz")}
-                name="plz"
-                required
-                value={person.plz}
-                onChange={handlePersonInputChange}
-              />
-            </div>
-            <div className="col-span-2">
-              <FloatingInput
-                label={t("person.ort")}
-                name="ort"
-                required
-                value={person.ort}
-                onChange={handlePersonInputChange}
-              />
-            </div>
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("person.strasse")}
-                name="strasse"
-                required
-                value={person.strasse}
-                onChange={handlePersonInputChange}
-              />
-            </div>
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("person.telefon")}
-                name="telefon"
-                required
-                value={person.telefon}
-                onChange={handlePersonInputChange}
-              />
-            </div>
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("person.email")}
-                name="email"
-                type="email"
-                required
-                value={person.email}
-                onChange={handlePersonInputChange}
-              />
-            </div>
-          </form>
+          <PersonStep
+            person={person}
+            onInputChange={handlePersonInputChange}
+            onSelectChange={handlePersonSelectChange}
+            t={t}
+          />
         )}
         {step === 1 && (
-          <form className="grid grid-cols-3 gap-x-4 gap-y-2">
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("child.vorname")}
-                name="vorname"
-                required
-                value={child.vorname}
-                onChange={handleChildInputChange}
-                ref={refChildVorname}
-              />
-            </div>
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("child.nachname")}
-                name="nachname"
-                required
-                value={child.nachname}
-                onChange={handleChildInputChange}
-              />
-            </div>
-            <div className="col-span-1">
-              <DateInput
-                label={t("child.geburtsdatum")}
-                name="geburtsdatum"
-                required
-                value={child.geburtsdatum}
-                onChange={handleChildDateChange}
-              />
-            </div>
-            <div className="col-span-1">
-              <FloatingSelect
-                label={t("child.geschlecht")}
-                name="geschlecht"
-                required
-                options={[
-                  {
-                    label: t("child.geschlechtMaennlich"),
-                    value: "männlich",
-                  },
-                  { label: t("child.geschlechtWeiblich"), value: "weiblich" },
-                  { label: t("child.geschlechtDivers"), value: "divers" },
-                  {
-                    label: t("child.geschlechtOhneAngabe"),
-                    value: "ohne Angabe",
-                  },
-                ]}
-                value={child.geschlecht}
-                onChange={(value) =>
-                  handleChildSelectChange({
-                    target: { name: "geschlecht", value },
-                  } as React.ChangeEvent<HTMLSelectElement>)
-                }
-              />
-            </div>
-            <div className="col-span-1"></div>
-            <div className="col-span-3">
-              <FloatingSelect
-                label={t("child.schule")}
-                name="schule"
-                required
-                options={
-                  Array.isArray(angeboteMatrix)
-                    ? angeboteMatrix.map((s) => ({
-                        label: s.schule,
-                        value: s.schule,
-                      }))
-                    : []
-                }
-                value={child.schule}
-                onChange={(value) =>
-                  handleChildSelectChange({
-                    target: { name: "schule", value },
-                  } as React.ChangeEvent<HTMLSelectElement>)
-                }
-              />
-            </div>
-            <div className="col-span-3">
-              <FloatingSelect
-                label={t("child.klasse")}
-                name="klasse"
-                required
-                options={(() => {
-                  let klassen: string[] = [];
-                  if (Array.isArray(angeboteMatrix)) {
-                    const found = angeboteMatrix.find(
-                      (s: any) => s.schule === child.schule
-                    );
-                    klassen = found?.klassen ?? [];
-                  }
-                  return klassen.map((k: string) => ({ label: k, value: k }));
-                })()}
-                value={child.klasse}
-                onChange={(value) =>
-                  handleChildSelectChange({
-                    target: { name: "klasse", value },
-                  } as React.ChangeEvent<HTMLSelectElement>)
-                }
-              />
-            </div>
-          </form>
-        )}
+          <ChildStep
+            child={child}
+            angeboteMatrix={angeboteMatrix}
+            onInputChange={handleChildInputChange}
+            onSelectChange={handleChildSelectChange}
+            onDateChange={handleChildDateChange}
+            t={t}
+          />
+        )}{" "}
         {step === 2 && (
-          <form className="grid grid-cols-3 gap-x-4 gap-y-2">
-            <div className="col-span-3">
-              <FloatingSelect
-                label={t("notes.betreuungsart")}
-                name="betreuungsart"
-                required
-                options={[
-                  {
-                    label: t("notes.selbststaendig"),
-                    value: "selbständig",
-                  },
-                  { label: t("notes.abholung"), value: "Abholung" },
-                  { label: t("notes.bus"), value: "Bus" },
-                ]}
-                value={hinweise.betreuungsart}
-                onChange={(value) =>
-                  handleHinweiseSelectChange(value as string)
-                }
-                ref={refHinweiseArt}
-              />
-            </div>
-            {isAbholRelevant && (
-              <div className="col-span-3">
-                <FloatingInput
-                  label={t("notes.abholName")}
-                  name="abholName"
-                  required
-                  value={hinweise.abholName}
-                  onChange={handleHinweiseInputChange}
-                />
-              </div>
-            )}
-            {isBusRelevant && (
-              <div className="col-span-3">
-                <FloatingInput
-                  label={t("notes.buslinie")}
-                  name="buslinie"
-                  required
-                  value={hinweise.buslinie}
-                  onChange={handleHinweiseInputChange}
-                />
-              </div>
-            )}
-            <div className="col-span-3 flex items-center mt-2">
-              <input
-                type="checkbox"
-                id="nimmtMedikamente"
-                name="nimmtMedikamente"
-                checked={hinweise.nimmtMedikamente}
-                onChange={handleHinweiseInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="nimmtMedikamente" className="font-medium">
-                {t("notes.nimmtMedikamente")}
-              </label>
-            </div>
-            {hinweise.nimmtMedikamente && (
-              <div className="col-span-3">
-                <FloatingInput
-                  label={t("notes.medikamente")}
-                  name="medikamente"
-                  required
-                  value={hinweise.medikamente}
-                  onChange={handleHinweiseInputChange}
-                />
-              </div>
-            )}
-            <div className="col-span-3 flex items-center mt-2">
-              <input
-                type="checkbox"
-                id="hatUnvertraeglichkeiten"
-                name="hatUnvertraeglichkeiten"
-                checked={hinweise.hatUnvertraeglichkeiten}
-                onChange={handleHinweiseInputChange}
-                className="mr-2"
-              />
-              <label htmlFor="hatUnvertraeglichkeiten" className="font-medium">
-                {t("notes.hatUnvertraeglichkeiten")}
-              </label>
-            </div>
-            {hinweise.hatUnvertraeglichkeiten && (
-              <div className="col-span-3">
-                <FloatingInput
-                  label={t("notes.unvertraeglichkeiten")}
-                  name="unvertraeglichkeiten"
-                  required
-                  value={hinweise.unvertraeglichkeiten}
-                  onChange={handleHinweiseInputChange}
-                />
-              </div>
-            )}
-          </form>
-        )}
+          <NotesStep
+            hinweise={hinweise}
+            isAbholRelevant={isAbholRelevant}
+            isBusRelevant={isBusRelevant}
+            handleHinweiseSelectChange={handleHinweiseSelectChange}
+            handleHinweiseInputChange={handleHinweiseInputChange}
+            t={t}
+          />
+        )}{" "}
         {step === 3 && (
-          <form className="grid grid-cols-3 gap-x-4 gap-y-2">
-            <div className="col-span-3 mb-2">
-              <input
-                type="checkbox"
-                id="agb"
-                name="agb"
-                checked={sepa.agb}
-                onChange={handleSepaCheckboxChange}
-                className="mr-2"
-                required
-              />
-              <label htmlFor="agb" className="font-medium">
-                {t("sepa.agb1")}{" "}
-                <a
-                  href="https://www.kitaweb-bw.de/kita/datei/436709/Nutzungsbedingungen_Betreuung_Januar_2024.PDF"
-                  className="text-blue-600 underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t("sepa.agb2")}
-                </a>{" "}
-                {t("sepa.agb3")}
-              </label>
-            </div>
-            <div className="col-span-3 mb-2">
-              <input
-                type="checkbox"
-                id="widerruf"
-                name="widerruf"
-                checked={sepa.widerruf}
-                onChange={handleSepaCheckboxChange}
-                className="mr-2"
-                required
-              />
-              <label htmlFor="widerruf" className="font-medium">
-                {t("sepa.widerruf1")}{" "}
-                <a
-                  href="https://www.kitaweb-bw.de/kita/datei/436709/Datenschutzerkl%C3%A4ung_Stadt_Bad_Waldsee.PDF"
-                  className="text-blue-600 underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t("sepa.widerruf2")}
-                </a>{" "}
-                {t("sepa.widerruf3")}
-              </label>
-            </div>
-            <div className="col-span-3 mb-2">
-              <input
-                type="checkbox"
-                id="datenschutz"
-                name="datenschutz"
-                checked={sepa.datenschutz}
-                onChange={handleSepaCheckboxChange}
-                className="mr-2"
-                required
-              />
-              <label htmlFor="sepaZustimmung" className="font-medium">
-                {t("sepa.datenschutz1")}{" "}
-                <a
-                  href="https://www.kitaweb-bw.de/kita/datei/436709/Hinweise_zum_SEPA_Mandat_Mai_2025.PDF"
-                  className="text-blue-600 underline"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {t("sepa.datenschutz2")}
-                </a>
-                {t("sepa.datenschutz3")}
-              </label>
-            </div>
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("sepa.kontoinhaber")}
-                name="kontoinhaber"
-                required
-                value={sepa.kontoinhaber}
-                onChange={handleSepaInputChange}
-                ref={refSepaKontoinhaber}
-              />
-            </div>
-            <div className="col-span-3">
-              <FloatingInput
-                label={t("sepa.iban")}
-                name="iban"
-                required
-                value={sepa.iban}
-                onChange={handleSepaInputChange}
-                maxLength={27}
-              />
-              {ibanError && (
-                <div className="text-red-600 text-sm mt-1">{ibanError}</div>
-              )}
-              {ibanBankName && !ibanError && (
-                <div className="text-green-700 text-sm mt-1">
-                  {t("sepa.bank")}: {ibanBankName}
-                </div>
-              )}
-            </div>
-          </form>
-        )}
+          <SEPAStep
+            sepa={sepa}
+            ibanError={ibanError}
+            ibanBankName={ibanBankName}
+            onInputChange={handleSepaInputChange}
+            onCheckboxChange={handleSepaCheckboxChange}
+            t={t}
+          />
+        )}{" "}
         {step === 4 && (
-          <div>
-            <label className="block font-medium mb-2 text-gray-700">
-              {t("offer.selectInstruction")}
-            </label>
-            {/* Matrix-Darstellung: Wochentage horizontal, Angebote vertikal */}
-            <div className="overflow-x-auto">
-              <table className="min-w-full border border-gray-300">
-                <thead>
-                  <tr>
-                    <th className="border px-1 py-1 bg-gray-100 w-32 text-left whitespace-nowrap"></th>
-                    <th className="border px-2 py-1 bg-gray-100 w-10 text-right whitespace-nowrap">
-                      {t("offer.uhrzeiten")}
-                    </th>
-                    {[
-                      "Montag",
-                      "Dienstag",
-                      "Mittwoch",
-                      "Donnerstag",
-                      "Freitag",
-                    ].map((tag) => (
-                      <th
-                        key={tag}
-                        className="border px-2 py-1 bg-gray-100 text-center"
-                      >
-                        {t(`weekdays.${tag}`)}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {/* Zeilen: Betreuungsangebote */}
-                  {(() => {
-                    let angeboteList: any[] = [];
-                    if (Array.isArray(angeboteMatrix)) {
-                      const found = angeboteMatrix.find(
-                        (s: any) => s.schule === child.schule
-                      );
-                      angeboteList = found?.angebote ?? [];
-                    }
-                    if (angeboteList.length === 0) return null;
-                    return angeboteList.map((angebot: any) => (
-                      <tr key={angebot.angebot}>
-                        <td className="border px-1 py-1 font-medium w-32 text-left whitespace-nowrap">
-                          {angebot.angebot}
-                        </td>
-                        <td className="border px-1 py-1 font-medium w-10 text-left whitespace-nowrap">
-                          {angebot.uhrzeitVon && angebot.uhrzeitBis && (
-                            <span className="ml-2 text-xs text-gray-500">
-                              {angebot.uhrzeitVon}
-                              {angebot.uhrzeitVon && angebot.uhrzeitBis
-                                ? " – "
-                                : ""}
-                              {angebot.uhrzeitBis}
-                            </span>
-                          )}
-                        </td>
-                        {[
-                          "Montag",
-                          "Dienstag",
-                          "Mittwoch",
-                          "Donnerstag",
-                          "Freitag",
-                        ].map((tag) => {
-                          const zeit = Array.isArray(angebot.zeiten)
-                            ? angebot.zeiten.find((z: any) => z.tag === tag)
-                            : undefined;
-                          const checked = angebote.some(
-                            (a) =>
-                              a.angebot === angebot.angebot &&
-                              a.ausgewaehlteTage.includes(tag)
-                          );
-                          const abweichend =
-                            zeit &&
-                            (("uhrzeitVon" in zeit &&
-                              zeit.uhrzeitVon !== undefined) ||
-                              ("uhrzeitBis" in zeit &&
-                                zeit.uhrzeitBis !== undefined));
-                          return (
-                            <td
-                              key={tag}
-                              className="border px-2 py-1 text-center relative"
-                            >
-                              {zeit ? (
-                                <span className="inline-flex items-center justify-center w-full h-full">
-                                  <input
-                                    type="checkbox"
-                                    checked={checked}
-                                    onChange={(e) => {
-                                      const idx = angebote.findIndex(
-                                        (a) => a.angebot === angebot.angebot
-                                      );
-                                      if (idx === -1) {
-                                        setAngebote((prev) => [
-                                          ...prev,
-                                          {
-                                            angebot: angebot.angebot,
-                                            geschwister: false,
-                                            geschwisterName: "",
-                                            ausgewaehlteTage: [tag],
-                                          },
-                                        ]);
-                                      } else {
-                                        handleTagCheckbox(
-                                          idx,
-                                          tag,
-                                          e.target.checked
-                                        );
-                                      }
-                                    }}
-                                  />
-                                </span>
-                              ) : null}
-                              {abweichend && (
-                                <span className="absolute top-2 right-1 group">
-                                  <Info className="w-4 h-4" stroke="#2563eb" />
-                                  <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 w-max px-2 py-1 bg-gray-800 text-white text-xs rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none z-50 whitespace-nowrap">
-                                    {`${
-                                      zeit.uhrzeitVon ??
-                                      angebot.uhrzeitVon ??
-                                      ""
-                                    }${
-                                      (zeit.uhrzeitVon ?? angebot.uhrzeitVon) &&
-                                      (zeit.uhrzeitBis ?? angebot.uhrzeitBis)
-                                        ? "–"
-                                        : ""
-                                    }${
-                                      zeit.uhrzeitBis ??
-                                      angebot.uhrzeitBis ??
-                                      ""
-                                    }`}
-                                  </div>
-                                </span>
-                              )}
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    ));
-                  })()}
-                </tbody>
-              </table>
-
-              <div className="mt-6">
-                <div className="flex items-center mb-2">
-                  <input
-                    type="checkbox"
-                    id="geschwister"
-                    name="geschwister"
-                    checked={geschwister}
-                    onChange={(e) => setGeschwister(e.target.checked)}
-                    className="mr-2"
-                  />
-                  <label
-                    htmlFor="geschwister"
-                    className="font-medium whitespace-normal max-w-[650px]"
-                  >
-                    {t("offer.geschwisterHinweis")}
-                  </label>
-                </div>
-                {geschwister && (
-                  <FloatingInput
-                    label={t("offer.geschwisterName")}
-                    name="geschwisterName"
-                    required
-                    value={geschwisterName}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setGeschwisterName(e.target.value)
-                    }
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+          <OfferStep
+            angeboteMatrix={angeboteMatrix}
+            child={child}
+            angebote={angebote}
+            setAngebote={setAngebote}
+            handleTagCheckbox={handleTagCheckbox}
+            geschwister={geschwister}
+            setGeschwister={setGeschwister}
+            geschwisterName={geschwisterName}
+            setGeschwisterName={setGeschwisterName}
+            t={t}
+          />
+        )}{" "}
       </div>
       <div className="flex justify-between">
         <button
